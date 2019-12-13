@@ -13,6 +13,7 @@ reserved_words = (
 tokens = (
 	'COMPARATOR',
 	'IDENTIFIER',
+	'ILLEGAL',
 	'FLOAT',
 	'INT',
 	'ADD_OP',
@@ -49,7 +50,17 @@ def t_COMPARATOR(t):
 	return t
 
 def t_INT(t):
-	r'\d+(^.[a-zA-z])?'
+	#r'\d+(?!\.)(?![a-zA-Z])'
+	r'\b(?<!\.)\d+(?!\.)\b'
+	try:
+		t.value = t.value   
+	except ValueError:
+		print ("Line %d: Problem while parsing %s!" % (t.lineno,t.value))
+		t.value = 0
+	return t
+
+def t_ILLEGAL(t):
+	r'\d+[a-zA-z]+'
 	try:
 		t.value = t.value   
 	except ValueError:
@@ -58,7 +69,7 @@ def t_INT(t):
 	return t
 
 def t_FLOAT(t):
-	r'\d+\.{1}\d+?'
+	r'\d+\.{1}\d+'
 	try:
 		t.value = float(t.value)   
 	except ValueError:
