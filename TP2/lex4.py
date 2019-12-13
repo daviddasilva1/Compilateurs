@@ -9,14 +9,14 @@ reserved_words = (
 )
 
 tokens = (
-	#'COMPARATOR',
+	'COMPARATOR',
 	'IDENTIFIER',
-	#'ILLEGAL',
+	'ILLEGAL',
 	'FLOAT',
 	'INT',
 	'EQU',
 	'ENTER',
-	#'POINTS',
+	'POINTS',
 ) + tuple(map(lambda s:s.upper(),reserved_words))
 
 

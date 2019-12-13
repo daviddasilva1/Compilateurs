@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "ENTER EQU FLOAT FOR IDENTIFIER IF IN INT PRINT RANGE programme : statement   programme : statement ENTER programme  statement : assignation\n\t\t\t\t\t\t| expression expression : INT\n\t\t| FLOAT \n\t\t| IDENTIFIER statement : PRINT expression expression : '(' expression ')'  assignation : IDENTIFIER EQU expression "
+_lr_signature = "COMPARATOR ENTER EQU FLOAT FOR IDENTIFIER IF ILLEGAL IN INT POINTS PRINT RANGE programme : statement   programme : statement ENTER programme  statement : assignation\n\t\t\t\t\t\t| expression expression : INT\n\t\t| FLOAT \n\t\t| IDENTIFIER\n\t\t| COMPARATOR statement : PRINT expression statement : IF expression expression expression POINTSexpression : '(' expression ')'  assignation : IDENTIFIER EQU expression "
     
-_lr_action_items = {'PRINT':([0,10,],[5,5,]),'IDENTIFIER':([0,5,9,10,13,],[6,12,12,6,12,]),'INT':([0,5,9,10,13,],[7,7,7,7,7,]),'FLOAT':([0,5,9,10,13,],[8,8,8,8,8,]),'(':([0,5,9,10,13,],[9,9,9,9,9,]),'$end':([1,2,3,4,6,7,8,11,12,15,16,17,],[0,-1,-3,-4,-7,-5,-6,-8,-7,-2,-10,-9,]),'ENTER':([2,3,4,6,7,8,11,12,16,17,],[10,-3,-4,-7,-5,-6,-8,-7,-10,-9,]),'EQU':([6,],[13,]),')':([7,8,12,14,17,],[-5,-6,-7,17,-9,]),}
+_lr_action_items = {'PRINT':([0,12,],[5,5,]),'IF':([0,12,],[6,6,]),'IDENTIFIER':([0,5,6,8,9,10,11,12,14,15,16,19,21,],[7,14,14,-5,-6,-8,14,7,-7,14,14,14,-11,]),'INT':([0,5,6,8,9,10,11,12,14,15,16,19,21,],[8,8,8,-5,-6,-8,8,8,-7,8,8,8,-11,]),'FLOAT':([0,5,6,8,9,10,11,12,14,15,16,19,21,],[9,9,9,-5,-6,-8,9,9,-7,9,9,9,-11,]),'COMPARATOR':([0,5,6,8,9,10,11,12,14,15,16,19,21,],[10,10,10,-5,-6,-8,10,10,-7,10,10,10,-11,]),'(':([0,5,6,8,9,10,11,12,14,15,16,19,21,],[11,11,11,-5,-6,-8,11,11,-7,11,11,11,-11,]),'$end':([1,2,3,4,7,8,9,10,13,14,18,20,21,23,],[0,-1,-3,-4,-7,-5,-6,-8,-9,-7,-2,-12,-11,-10,]),'ENTER':([2,3,4,7,8,9,10,13,14,20,21,23,],[12,-3,-4,-7,-5,-6,-8,-9,-7,-12,-11,-10,]),'EQU':([7,],[16,]),')':([8,9,10,14,17,21,],[-5,-6,-8,-7,21,-11,]),'POINTS':([8,9,10,14,21,22,],[-5,-6,-8,-7,-11,23,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'programme':([0,10,],[1,15,]),'statement':([0,10,],[2,2,]),'assignation':([0,10,],[3,3,]),'expression':([0,5,9,10,13,],[4,11,14,4,16,]),}
+_lr_goto_items = {'programme':([0,12,],[1,18,]),'statement':([0,12,],[2,2,]),'assignation':([0,12,],[3,3,]),'expression':([0,5,6,11,12,15,16,19,],[4,13,15,17,4,19,20,22,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -34,7 +34,9 @@ _lr_productions = [
   ('expression -> INT','expression',1,'p_expression_num_or_var','parser4.py',24),
   ('expression -> FLOAT','expression',1,'p_expression_num_or_var','parser4.py',25),
   ('expression -> IDENTIFIER','expression',1,'p_expression_num_or_var','parser4.py',26),
-  ('statement -> PRINT expression','statement',2,'p_statement_print','parser4.py',30),
-  ('expression -> ( expression )','expression',3,'p_expression_paren','parser4.py',34),
-  ('assignation -> IDENTIFIER EQU expression','assignation',3,'p_assign','parser4.py',38),
+  ('expression -> COMPARATOR','expression',1,'p_expression_num_or_var','parser4.py',27),
+  ('statement -> PRINT expression','statement',2,'p_statement_print','parser4.py',31),
+  ('statement -> IF expression expression expression POINTS','statement',5,'p_statement_if','parser4.py',35),
+  ('expression -> ( expression )','expression',3,'p_expression_paren','parser4.py',39),
+  ('assignation -> IDENTIFIER EQU expression','assignation',3,'p_assign','parser4.py',43),
 ]

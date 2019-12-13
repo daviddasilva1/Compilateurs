@@ -23,12 +23,17 @@ def p_statement(p):
 def p_expression_num_or_var(p):
 	'''expression : INT
 		| FLOAT 
-		| IDENTIFIER'''
+		| IDENTIFIER
+		| COMPARATOR'''
 	p[0] = AST.TokenNode(p[1])
 
 def p_statement_print(p):
     ''' statement : PRINT expression '''
     p[0] = AST.PrintNode(p[2])
+
+def p_statement_if(p):
+	'''statement : IF expression expression expression POINTS'''
+	p[0] = AST.IfNode([AST.TokenNode(p[2]),p[3],p[4]])
 	
 def p_expression_paren(p):
 	'''expression : '(' expression ')' '''

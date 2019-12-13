@@ -3,7 +3,7 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 Unused terminals:
 
     FOR
-    IF
+    ILLEGAL
     IN
     RANGE
 
@@ -17,30 +17,35 @@ Rule 4     statement -> expression
 Rule 5     expression -> INT
 Rule 6     expression -> FLOAT
 Rule 7     expression -> IDENTIFIER
-Rule 8     statement -> PRINT expression
-Rule 9     expression -> ( expression )
-Rule 10    assignation -> IDENTIFIER EQU expression
+Rule 8     expression -> COMPARATOR
+Rule 9     statement -> PRINT expression
+Rule 10    statement -> IF expression expression expression POINTS
+Rule 11    expression -> ( expression )
+Rule 12    assignation -> IDENTIFIER EQU expression
 
 Terminals, with rules where they appear
 
-(                    : 9
-)                    : 9
+(                    : 11
+)                    : 11
+COMPARATOR           : 8
 ENTER                : 2
-EQU                  : 10
+EQU                  : 12
 FLOAT                : 6
 FOR                  : 
-IDENTIFIER           : 7 10
-IF                   : 
+IDENTIFIER           : 7 12
+IF                   : 10
+ILLEGAL              : 
 IN                   : 
 INT                  : 5
-PRINT                : 8
+POINTS               : 10
+PRINT                : 9
 RANGE                : 
 error                : 
 
 Nonterminals, with rules where they appear
 
 assignation          : 3
-expression           : 4 8 9 10
+expression           : 4 9 10 10 10 11 12
 programme            : 2 0
 statement            : 1 2
 
@@ -53,18 +58,22 @@ state 0
     (2) programme -> . statement ENTER programme
     (3) statement -> . assignation
     (4) statement -> . expression
-    (8) statement -> . PRINT expression
-    (10) assignation -> . IDENTIFIER EQU expression
+    (9) statement -> . PRINT expression
+    (10) statement -> . IF expression expression expression POINTS
+    (12) assignation -> . IDENTIFIER EQU expression
     (5) expression -> . INT
     (6) expression -> . FLOAT
     (7) expression -> . IDENTIFIER
-    (9) expression -> . ( expression )
+    (8) expression -> . COMPARATOR
+    (11) expression -> . ( expression )
 
     PRINT           shift and go to state 5
-    IDENTIFIER      shift and go to state 6
-    INT             shift and go to state 7
-    FLOAT           shift and go to state 8
-    (               shift and go to state 9
+    IF              shift and go to state 6
+    IDENTIFIER      shift and go to state 7
+    INT             shift and go to state 8
+    FLOAT           shift and go to state 9
+    COMPARATOR      shift and go to state 10
+    (               shift and go to state 11
 
     programme                      shift and go to state 1
     statement                      shift and go to state 2
@@ -83,7 +92,7 @@ state 2
     (2) programme -> statement . ENTER programme
 
     $end            reduce using rule 1 (programme -> statement .)
-    ENTER           shift and go to state 10
+    ENTER           shift and go to state 12
 
 
 state 3
@@ -104,146 +113,261 @@ state 4
 
 state 5
 
-    (8) statement -> PRINT . expression
+    (9) statement -> PRINT . expression
     (5) expression -> . INT
     (6) expression -> . FLOAT
     (7) expression -> . IDENTIFIER
-    (9) expression -> . ( expression )
+    (8) expression -> . COMPARATOR
+    (11) expression -> . ( expression )
 
-    INT             shift and go to state 7
-    FLOAT           shift and go to state 8
-    IDENTIFIER      shift and go to state 12
-    (               shift and go to state 9
+    INT             shift and go to state 8
+    FLOAT           shift and go to state 9
+    IDENTIFIER      shift and go to state 14
+    COMPARATOR      shift and go to state 10
+    (               shift and go to state 11
 
-    expression                     shift and go to state 11
+    expression                     shift and go to state 13
 
 state 6
 
-    (10) assignation -> IDENTIFIER . EQU expression
+    (10) statement -> IF . expression expression expression POINTS
+    (5) expression -> . INT
+    (6) expression -> . FLOAT
+    (7) expression -> . IDENTIFIER
+    (8) expression -> . COMPARATOR
+    (11) expression -> . ( expression )
+
+    INT             shift and go to state 8
+    FLOAT           shift and go to state 9
+    IDENTIFIER      shift and go to state 14
+    COMPARATOR      shift and go to state 10
+    (               shift and go to state 11
+
+    expression                     shift and go to state 15
+
+state 7
+
+    (12) assignation -> IDENTIFIER . EQU expression
     (7) expression -> IDENTIFIER .
 
-    EQU             shift and go to state 13
+    EQU             shift and go to state 16
     ENTER           reduce using rule 7 (expression -> IDENTIFIER .)
     $end            reduce using rule 7 (expression -> IDENTIFIER .)
 
 
-state 7
+state 8
 
     (5) expression -> INT .
 
     ENTER           reduce using rule 5 (expression -> INT .)
     $end            reduce using rule 5 (expression -> INT .)
+    INT             reduce using rule 5 (expression -> INT .)
+    FLOAT           reduce using rule 5 (expression -> INT .)
+    IDENTIFIER      reduce using rule 5 (expression -> INT .)
+    COMPARATOR      reduce using rule 5 (expression -> INT .)
+    (               reduce using rule 5 (expression -> INT .)
     )               reduce using rule 5 (expression -> INT .)
+    POINTS          reduce using rule 5 (expression -> INT .)
 
 
-state 8
+state 9
 
     (6) expression -> FLOAT .
 
     ENTER           reduce using rule 6 (expression -> FLOAT .)
     $end            reduce using rule 6 (expression -> FLOAT .)
+    INT             reduce using rule 6 (expression -> FLOAT .)
+    FLOAT           reduce using rule 6 (expression -> FLOAT .)
+    IDENTIFIER      reduce using rule 6 (expression -> FLOAT .)
+    COMPARATOR      reduce using rule 6 (expression -> FLOAT .)
+    (               reduce using rule 6 (expression -> FLOAT .)
     )               reduce using rule 6 (expression -> FLOAT .)
+    POINTS          reduce using rule 6 (expression -> FLOAT .)
 
 
-state 9
+state 10
 
-    (9) expression -> ( . expression )
+    (8) expression -> COMPARATOR .
+
+    ENTER           reduce using rule 8 (expression -> COMPARATOR .)
+    $end            reduce using rule 8 (expression -> COMPARATOR .)
+    INT             reduce using rule 8 (expression -> COMPARATOR .)
+    FLOAT           reduce using rule 8 (expression -> COMPARATOR .)
+    IDENTIFIER      reduce using rule 8 (expression -> COMPARATOR .)
+    COMPARATOR      reduce using rule 8 (expression -> COMPARATOR .)
+    (               reduce using rule 8 (expression -> COMPARATOR .)
+    )               reduce using rule 8 (expression -> COMPARATOR .)
+    POINTS          reduce using rule 8 (expression -> COMPARATOR .)
+
+
+state 11
+
+    (11) expression -> ( . expression )
     (5) expression -> . INT
     (6) expression -> . FLOAT
     (7) expression -> . IDENTIFIER
-    (9) expression -> . ( expression )
+    (8) expression -> . COMPARATOR
+    (11) expression -> . ( expression )
 
-    INT             shift and go to state 7
-    FLOAT           shift and go to state 8
-    IDENTIFIER      shift and go to state 12
-    (               shift and go to state 9
+    INT             shift and go to state 8
+    FLOAT           shift and go to state 9
+    IDENTIFIER      shift and go to state 14
+    COMPARATOR      shift and go to state 10
+    (               shift and go to state 11
 
-    expression                     shift and go to state 14
+    expression                     shift and go to state 17
 
-state 10
+state 12
 
     (2) programme -> statement ENTER . programme
     (1) programme -> . statement
     (2) programme -> . statement ENTER programme
     (3) statement -> . assignation
     (4) statement -> . expression
-    (8) statement -> . PRINT expression
-    (10) assignation -> . IDENTIFIER EQU expression
+    (9) statement -> . PRINT expression
+    (10) statement -> . IF expression expression expression POINTS
+    (12) assignation -> . IDENTIFIER EQU expression
     (5) expression -> . INT
     (6) expression -> . FLOAT
     (7) expression -> . IDENTIFIER
-    (9) expression -> . ( expression )
+    (8) expression -> . COMPARATOR
+    (11) expression -> . ( expression )
 
     PRINT           shift and go to state 5
-    IDENTIFIER      shift and go to state 6
-    INT             shift and go to state 7
-    FLOAT           shift and go to state 8
-    (               shift and go to state 9
+    IF              shift and go to state 6
+    IDENTIFIER      shift and go to state 7
+    INT             shift and go to state 8
+    FLOAT           shift and go to state 9
+    COMPARATOR      shift and go to state 10
+    (               shift and go to state 11
 
     statement                      shift and go to state 2
-    programme                      shift and go to state 15
+    programme                      shift and go to state 18
     assignation                    shift and go to state 3
     expression                     shift and go to state 4
 
-state 11
+state 13
 
-    (8) statement -> PRINT expression .
+    (9) statement -> PRINT expression .
 
-    ENTER           reduce using rule 8 (statement -> PRINT expression .)
-    $end            reduce using rule 8 (statement -> PRINT expression .)
+    ENTER           reduce using rule 9 (statement -> PRINT expression .)
+    $end            reduce using rule 9 (statement -> PRINT expression .)
 
 
-state 12
+state 14
 
     (7) expression -> IDENTIFIER .
 
     ENTER           reduce using rule 7 (expression -> IDENTIFIER .)
     $end            reduce using rule 7 (expression -> IDENTIFIER .)
+    INT             reduce using rule 7 (expression -> IDENTIFIER .)
+    FLOAT           reduce using rule 7 (expression -> IDENTIFIER .)
+    IDENTIFIER      reduce using rule 7 (expression -> IDENTIFIER .)
+    COMPARATOR      reduce using rule 7 (expression -> IDENTIFIER .)
+    (               reduce using rule 7 (expression -> IDENTIFIER .)
     )               reduce using rule 7 (expression -> IDENTIFIER .)
-
-
-state 13
-
-    (10) assignation -> IDENTIFIER EQU . expression
-    (5) expression -> . INT
-    (6) expression -> . FLOAT
-    (7) expression -> . IDENTIFIER
-    (9) expression -> . ( expression )
-
-    INT             shift and go to state 7
-    FLOAT           shift and go to state 8
-    IDENTIFIER      shift and go to state 12
-    (               shift and go to state 9
-
-    expression                     shift and go to state 16
-
-state 14
-
-    (9) expression -> ( expression . )
-
-    )               shift and go to state 17
+    POINTS          reduce using rule 7 (expression -> IDENTIFIER .)
 
 
 state 15
+
+    (10) statement -> IF expression . expression expression POINTS
+    (5) expression -> . INT
+    (6) expression -> . FLOAT
+    (7) expression -> . IDENTIFIER
+    (8) expression -> . COMPARATOR
+    (11) expression -> . ( expression )
+
+    INT             shift and go to state 8
+    FLOAT           shift and go to state 9
+    IDENTIFIER      shift and go to state 14
+    COMPARATOR      shift and go to state 10
+    (               shift and go to state 11
+
+    expression                     shift and go to state 19
+
+state 16
+
+    (12) assignation -> IDENTIFIER EQU . expression
+    (5) expression -> . INT
+    (6) expression -> . FLOAT
+    (7) expression -> . IDENTIFIER
+    (8) expression -> . COMPARATOR
+    (11) expression -> . ( expression )
+
+    INT             shift and go to state 8
+    FLOAT           shift and go to state 9
+    IDENTIFIER      shift and go to state 14
+    COMPARATOR      shift and go to state 10
+    (               shift and go to state 11
+
+    expression                     shift and go to state 20
+
+state 17
+
+    (11) expression -> ( expression . )
+
+    )               shift and go to state 21
+
+
+state 18
 
     (2) programme -> statement ENTER programme .
 
     $end            reduce using rule 2 (programme -> statement ENTER programme .)
 
 
-state 16
+state 19
 
-    (10) assignation -> IDENTIFIER EQU expression .
+    (10) statement -> IF expression expression . expression POINTS
+    (5) expression -> . INT
+    (6) expression -> . FLOAT
+    (7) expression -> . IDENTIFIER
+    (8) expression -> . COMPARATOR
+    (11) expression -> . ( expression )
 
-    ENTER           reduce using rule 10 (assignation -> IDENTIFIER EQU expression .)
-    $end            reduce using rule 10 (assignation -> IDENTIFIER EQU expression .)
+    INT             shift and go to state 8
+    FLOAT           shift and go to state 9
+    IDENTIFIER      shift and go to state 14
+    COMPARATOR      shift and go to state 10
+    (               shift and go to state 11
+
+    expression                     shift and go to state 22
+
+state 20
+
+    (12) assignation -> IDENTIFIER EQU expression .
+
+    ENTER           reduce using rule 12 (assignation -> IDENTIFIER EQU expression .)
+    $end            reduce using rule 12 (assignation -> IDENTIFIER EQU expression .)
 
 
-state 17
+state 21
 
-    (9) expression -> ( expression ) .
+    (11) expression -> ( expression ) .
 
-    ENTER           reduce using rule 9 (expression -> ( expression ) .)
-    $end            reduce using rule 9 (expression -> ( expression ) .)
-    )               reduce using rule 9 (expression -> ( expression ) .)
+    ENTER           reduce using rule 11 (expression -> ( expression ) .)
+    $end            reduce using rule 11 (expression -> ( expression ) .)
+    INT             reduce using rule 11 (expression -> ( expression ) .)
+    FLOAT           reduce using rule 11 (expression -> ( expression ) .)
+    IDENTIFIER      reduce using rule 11 (expression -> ( expression ) .)
+    COMPARATOR      reduce using rule 11 (expression -> ( expression ) .)
+    (               reduce using rule 11 (expression -> ( expression ) .)
+    )               reduce using rule 11 (expression -> ( expression ) .)
+    POINTS          reduce using rule 11 (expression -> ( expression ) .)
+
+
+state 22
+
+    (10) statement -> IF expression expression expression . POINTS
+
+    POINTS          shift and go to state 23
+
+
+state 23
+
+    (10) statement -> IF expression expression expression POINTS .
+
+    ENTER           reduce using rule 10 (statement -> IF expression expression expression POINTS .)
+    $end            reduce using rule 10 (statement -> IF expression expression expression POINTS .)
 
