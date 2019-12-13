@@ -8,11 +8,11 @@ import AST
 vars = {}
 
 def p_programme_statement(p):
-	''' programme : statement '''
+	''' programme : statement  '''
 	p[0] = AST.ProgramNode(p[1])
 
 def p_programme_recursive(p):
-	''' programme : statement ';' programme '''
+	''' programme : statement ENTER programme '''
 	p[0] = AST.ProgramNode([p[1]]+p[3].children)
 
 def p_statement(p):
@@ -22,8 +22,13 @@ def p_statement(p):
 	
 def p_expression_num_or_var(p):
 	'''expression : INT
-		| FLOAT '''
+		| FLOAT 
+		| IDENTIFIER'''
 	p[0] = AST.TokenNode(p[1])
+
+def p_statement_print(p):
+    ''' statement : PRINT expression '''
+    p[0] = AST.PrintNode(p[2])
 	
 def p_expression_paren(p):
 	'''expression : '(' expression ')' '''

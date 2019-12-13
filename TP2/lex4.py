@@ -15,12 +15,17 @@ tokens = (
 	'FLOAT',
 	'INT',
 	'EQU',
+	'ENTER',
 	#'POINTS',
 ) + tuple(map(lambda s:s.upper(),reserved_words))
 
 
 
-literals = '():,'
+literals = '():\s'
+
+def t_ENTER(t):
+	r'\n'
+	return t
 
 
 
@@ -43,6 +48,7 @@ def t_MUL_OP(t):
 def t_COMPARATOR(t):
 	r'<|>'
 	return t
+
 
 def t_INT(t):
 	#r'\d+(?!\.)(?![a-zA-Z])'

@@ -84,3 +84,6 @@ class OpNode(Node):
     
 class AssignNode(Node):
     type = '='
+
+class PrintNode(Node):
+    type = 'print'
