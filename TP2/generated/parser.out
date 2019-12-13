@@ -1,0 +1,203 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    FOR
+    IF
+    IN
+    PRINT
+    RANGE
+
+Grammar
+
+Rule 0     S' -> programme
+Rule 1     programme -> statement
+Rule 2     programme -> statement ; programme
+Rule 3     statement -> assignation
+Rule 4     statement -> expression
+Rule 5     expression -> INT
+Rule 6     expression -> FLOAT
+Rule 7     expression -> ( expression )
+Rule 8     assignation -> IDENTIFIER EQU expression
+
+Terminals, with rules where they appear
+
+(                    : 7
+)                    : 7
+;                    : 2
+EQU                  : 8
+FLOAT                : 6
+FOR                  : 
+IDENTIFIER           : 8
+IF                   : 
+IN                   : 
+INT                  : 5
+PRINT                : 
+RANGE                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+assignation          : 3
+expression           : 4 7 8
+programme            : 2 0
+statement            : 1 2
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . programme
+    (1) programme -> . statement
+    (2) programme -> . statement ; programme
+    (3) statement -> . assignation
+    (4) statement -> . expression
+    (8) assignation -> . IDENTIFIER EQU expression
+    (5) expression -> . INT
+    (6) expression -> . FLOAT
+    (7) expression -> . ( expression )
+
+    IDENTIFIER      shift and go to state 5
+    INT             shift and go to state 6
+    FLOAT           shift and go to state 7
+    (               shift and go to state 8
+
+    programme                      shift and go to state 1
+    statement                      shift and go to state 2
+    assignation                    shift and go to state 3
+    expression                     shift and go to state 4
+
+state 1
+
+    (0) S' -> programme .
+
+
+
+state 2
+
+    (1) programme -> statement .
+    (2) programme -> statement . ; programme
+
+    $end            reduce using rule 1 (programme -> statement .)
+    ;               shift and go to state 9
+
+
+state 3
+
+    (3) statement -> assignation .
+
+    ;               reduce using rule 3 (statement -> assignation .)
+    $end            reduce using rule 3 (statement -> assignation .)
+
+
+state 4
+
+    (4) statement -> expression .
+
+    ;               reduce using rule 4 (statement -> expression .)
+    $end            reduce using rule 4 (statement -> expression .)
+
+
+state 5
+
+    (8) assignation -> IDENTIFIER . EQU expression
+
+    EQU             shift and go to state 10
+
+
+state 6
+
+    (5) expression -> INT .
+
+    ;               reduce using rule 5 (expression -> INT .)
+    $end            reduce using rule 5 (expression -> INT .)
+    )               reduce using rule 5 (expression -> INT .)
+
+
+state 7
+
+    (6) expression -> FLOAT .
+
+    ;               reduce using rule 6 (expression -> FLOAT .)
+    $end            reduce using rule 6 (expression -> FLOAT .)
+    )               reduce using rule 6 (expression -> FLOAT .)
+
+
+state 8
+
+    (7) expression -> ( . expression )
+    (5) expression -> . INT
+    (6) expression -> . FLOAT
+    (7) expression -> . ( expression )
+
+    INT             shift and go to state 6
+    FLOAT           shift and go to state 7
+    (               shift and go to state 8
+
+    expression                     shift and go to state 11
+
+state 9
+
+    (2) programme -> statement ; . programme
+    (1) programme -> . statement
+    (2) programme -> . statement ; programme
+    (3) statement -> . assignation
+    (4) statement -> . expression
+    (8) assignation -> . IDENTIFIER EQU expression
+    (5) expression -> . INT
+    (6) expression -> . FLOAT
+    (7) expression -> . ( expression )
+
+    IDENTIFIER      shift and go to state 5
+    INT             shift and go to state 6
+    FLOAT           shift and go to state 7
+    (               shift and go to state 8
+
+    statement                      shift and go to state 2
+    programme                      shift and go to state 12
+    assignation                    shift and go to state 3
+    expression                     shift and go to state 4
+
+state 10
+
+    (8) assignation -> IDENTIFIER EQU . expression
+    (5) expression -> . INT
+    (6) expression -> . FLOAT
+    (7) expression -> . ( expression )
+
+    INT             shift and go to state 6
+    FLOAT           shift and go to state 7
+    (               shift and go to state 8
+
+    expression                     shift and go to state 13
+
+state 11
+
+    (7) expression -> ( expression . )
+
+    )               shift and go to state 14
+
+
+state 12
+
+    (2) programme -> statement ; programme .
+
+    $end            reduce using rule 2 (programme -> statement ; programme .)
+
+
+state 13
+
+    (8) assignation -> IDENTIFIER EQU expression .
+
+    ;               reduce using rule 8 (assignation -> IDENTIFIER EQU expression .)
+    $end            reduce using rule 8 (assignation -> IDENTIFIER EQU expression .)
+
+
+state 14
+
+    (7) expression -> ( expression ) .
+
+    ;               reduce using rule 7 (expression -> ( expression ) .)
+    $end            reduce using rule 7 (expression -> ( expression ) .)
+    )               reduce using rule 7 (expression -> ( expression ) .)
+

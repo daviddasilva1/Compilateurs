@@ -1,35 +1,83 @@
 import ply.lex as lex
 
-tokens = (
-	'NUMBER',
-	'ADD_OP',
-	'MUL_OP',
-	'IDENTIFIER',
+reserved_words = (
+	'if',
+	'print',
+	'range',
+	'for',
+	'in'
 )
 
-literals = '();='
+tokens = (
+	#'COMPARATOR',
+	'IDENTIFIER',
+	#'ILLEGAL',
+	'FLOAT',
+	'INT',
+	'EQU',
+	#'POINTS',
+) + tuple(map(lambda s:s.upper(),reserved_words))
+
+
+
+literals = '():,'
+
+
 
 def t_ADD_OP(t):
-	r'[+-]'
-	return t
-	
-def t_MUL_OP(t):
-	r'[*/]'
+	r'\+|-'
 	return t
 
-def t_NUMBER(t):
-	r'\d+(\.\d+)?'
+def t_POINTS(t):
+	r':'
+	return t
+
+def t_EQU(t):
+	r'\='
+	return t	
+	
+def t_MUL_OP(t):
+	r'\*|/'
+	return t
+
+def t_COMPARATOR(t):
+	r'<|>'
+	return t
+
+def t_INT(t):
+	#r'\d+(?!\.)(?![a-zA-Z])'
+	r'\b(?<!\.)\d+(?!\.)\b'
 	try:
-		t.value = float(t.value)    
+		t.value = t.value   
 	except ValueError:
 		print ("Line %d: Problem while parsing %s!" % (t.lineno,t.value))
 		t.value = 0
 	return t
 
+def t_ILLEGAL(t):
+	r'\d+[a-zA-z]+'
+	try:
+		t.value = t.value   
+	except ValueError:
+		print ("Line %d: Problem while parsing %s!" % (t.lineno,t.value))
+		t.value = 0
+	return t
+
+def t_FLOAT(t):
+	r'\d+\.{1}\d+'
+	try:
+		t.value = float(t.value)   
+	except ValueError:
+		print ("Line %d: Problem while parsing %s!" % (t.lineno,t.value))
+		t.value = 0.0
+	return t
+
 def t_IDENTIFIER(t):
 	r'[A-Za-z_]\w*'
+	if t.value in reserved_words:
+		t.type = t.value.upper()
 	return t
-	
+
 def t_newline(t):
 	r'\n+'
 	t.lexer.lineno += len(t.value)
@@ -37,7 +85,7 @@ def t_newline(t):
 t_ignore  = ' \t'
 
 def t_error(t):
-	print ("Illegal character '%s'" % repr(t.value[0]))
+	print ("Illegal character '%s'" % t.value[0])
 	t.lexer.skip(1)
 
 lex.lex()

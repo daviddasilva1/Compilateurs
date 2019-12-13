@@ -21,7 +21,7 @@ tokens = (
 	'EQU',
 	'VAR',
 	'POINTS',
-) + tuple(map(lambda s:s.upper(),reserved_words))
+)# + tuple(map(lambda s:s.upper(),reserved_words))
 
 
 
