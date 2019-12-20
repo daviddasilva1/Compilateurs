@@ -5,7 +5,8 @@ reserved_words = (
 	'print',
 	'range',
 	'for',
-	'in'
+	'in',
+	'while'
 )
 
 tokens = (
@@ -17,7 +18,8 @@ tokens = (
 	'EQU',
 	'ENTER',
 	'POINTS',
-) + tuple(map(lambda s:s.upper(),reserved_words))
+	'TAB'
+	) + tuple(map(lambda s:s.upper(),reserved_words))
 
 
 
@@ -46,7 +48,7 @@ def t_MUL_OP(t):
 	return t
 
 def t_COMPARATOR(t):
-	r'<|>'
+	r'[<>]'
 	return t
 
 
@@ -84,11 +86,16 @@ def t_IDENTIFIER(t):
 		t.type = t.value.upper()
 	return t
 
+def t_TAB(t):
+	r'[ \t]{4}'
+	return t
+
+
+
 def t_newline(t):
 	r'\n+'
 	t.lexer.lineno += len(t.value)
 
-t_ignore  = ' \t'
 
 def t_error(t):
 	print ("Illegal character '%s'" % t.value[0])

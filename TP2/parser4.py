@@ -17,28 +17,41 @@ def p_programme_recursive(p):
 
 def p_statement(p):
 	''' statement : assignation
-						| expression '''
+						| structure '''
 	p[0] = p[1]
 	
 def p_expression_num_or_var(p):
 	'''expression : INT
 		| FLOAT 
-		| IDENTIFIER
-		| COMPARATOR'''
+		| IDENTIFIER 
+		 '''
 	p[0] = AST.TokenNode(p[1])
 
 def p_statement_print(p):
     ''' statement : PRINT expression '''
     p[0] = AST.PrintNode(p[2])
 
-def p_statement_if(p):
-	'''statement : IF expression expression expression POINTS'''
-	p[0] = AST.IfNode([AST.TokenNode(p[2]),p[3],p[4]])
-	
+def p_expression_comp(p):
+	''' expression : expression COMPARATOR expression'''
+	p[0] = AST.OpNode(p[2],[p[1],p[3]])
+
+def p_structure_if(p):
+	'''structure : IF expression POINTS ENTER TAB programme '''
+	p[0] = AST.IfNode([p[2],p[6]])
+
+def p_structure_while(p):
+	''' structure : WHILE expression POINTS ENTER programme '''
+	p[0] = AST.WhileNode([p[2],p[5]])
+
 def p_expression_paren(p):
-	'''expression : '(' expression ')' '''
-	p[0] = p[2]
-	
+    '''expression : '(' expression ')' '''
+    p[0] = p[2]
+
+
+def p_expression_tab(p):
+ 	'''expression : TAB expression'''
+ 	p[0] = p[2]
+
 def p_assign(p):
 	''' assignation : IDENTIFIER EQU expression '''
 	p[0] = AST.AssignNode([AST.TokenNode(p[1]),p[3]])

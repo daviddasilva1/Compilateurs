@@ -90,3 +90,6 @@ class PrintNode(Node):
 
 class IfNode(Node):
     type= 'if'
+
+class WhileNode(Node):
+    type= 'while'
