@@ -17,7 +17,9 @@ operations = {
 	'+' : 'ADD',
 	'-' : 'SUB',
 	'*' : 'MUL',
-	'/' : 'DIV'
+	'/' : 'DIV',
+	'<' : 'NEGCOMP',
+	'>' : 'POSCOMP'
 }
 
 def whilecounter():
@@ -76,14 +78,16 @@ def compile(self):
 # si c'est une opération binaire, empile les enfants puis l'opération
 @addToClass(AST.OpNode)
 def compile(self):
-	bytecode = ""
-	if len(self.children) == 1:
-		bytecode += self.children[0].compile()
-		bytecode += "USUB\n"
-	else:
-		for c in self.children:
-			bytecode += c.compile()
-		bytecode += operations[self.op] + "\n"
+	bytecode = ""	
+	bytecode += self.children[0].tok
+	print(operations[self.op])
+	for key,value in operations.items():
+		if value == operations[self.op]:
+			bytecode += key
+	bytecode += self.children[1].tok
+
+
+
 	return bytecode
 	
 # noeud de boucle while
@@ -110,7 +114,7 @@ def compile(self):
 def compile(self):
 	counter = whilecounter()
 	bytecode = ""
-	bytecode += "if(%s) {" % self.children[0].tok
+	bytecode += "if(%s) {" % self.children[0].compile()
 	bytecode +="\n"
 	bytecode += "\t"+self.children[1].compile()
 	bytecode+="}"
