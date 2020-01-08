@@ -1,0 +1,515 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    FOR
+    ILLEGAL
+    IN
+    RANGE
+
+Grammar
+
+Rule 0     S' -> programme
+Rule 1     programme -> statement
+Rule 2     programme -> statement ENTER programme
+Rule 3     statement -> assignation
+Rule 4     statement -> structure
+Rule 5     expression -> INT
+Rule 6     expression -> FLOAT
+Rule 7     expression -> IDENTIFIER
+Rule 8     statement -> PRINT expression
+Rule 9     expression -> expression COMPARATOR expression
+Rule 10    structure -> IF expression POINTS ENTER TAB programme #
+Rule 11    structure -> WHILE expression POINTS ENTER TAB programme #
+Rule 12    expression -> ( expression )
+Rule 13    expression -> TAB expression
+Rule 14    assignation -> IDENTIFIER EQU expression
+
+Terminals, with rules where they appear
+
+#                    : 10 11
+(                    : 12
+)                    : 12
+COMPARATOR           : 9
+ENTER                : 2 10 11
+EQU                  : 14
+FLOAT                : 6
+FOR                  : 
+IDENTIFIER           : 7 14
+IF                   : 10
+ILLEGAL              : 
+IN                   : 
+INT                  : 5
+POINTS               : 10 11
+PRINT                : 8
+RANGE                : 
+TAB                  : 10 11 13
+WHILE                : 11
+error                : 
+
+Nonterminals, with rules where they appear
+
+assignation          : 3
+expression           : 8 9 9 10 11 12 13 14
+programme            : 2 10 11 0
+statement            : 1 2
+structure            : 4
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . programme
+    (1) programme -> . statement
+    (2) programme -> . statement ENTER programme
+    (3) statement -> . assignation
+    (4) statement -> . structure
+    (8) statement -> . PRINT expression
+    (14) assignation -> . IDENTIFIER EQU expression
+    (10) structure -> . IF expression POINTS ENTER TAB programme #
+    (11) structure -> . WHILE expression POINTS ENTER TAB programme #
+
+    PRINT           shift and go to state 5
+    IDENTIFIER      shift and go to state 6
+    IF              shift and go to state 7
+    WHILE           shift and go to state 8
+
+    programme                      shift and go to state 1
+    statement                      shift and go to state 2
+    assignation                    shift and go to state 3
+    structure                      shift and go to state 4
+
+state 1
+
+    (0) S' -> programme .
+
+
+
+state 2
+
+    (1) programme -> statement .
+    (2) programme -> statement . ENTER programme
+
+    $end            reduce using rule 1 (programme -> statement .)
+    #               reduce using rule 1 (programme -> statement .)
+    ENTER           shift and go to state 9
+
+
+state 3
+
+    (3) statement -> assignation .
+
+    ENTER           reduce using rule 3 (statement -> assignation .)
+    $end            reduce using rule 3 (statement -> assignation .)
+    #               reduce using rule 3 (statement -> assignation .)
+
+
+state 4
+
+    (4) statement -> structure .
+
+    ENTER           reduce using rule 4 (statement -> structure .)
+    $end            reduce using rule 4 (statement -> structure .)
+    #               reduce using rule 4 (statement -> structure .)
+
+
+state 5
+
+    (8) statement -> PRINT . expression
+    (5) expression -> . INT
+    (6) expression -> . FLOAT
+    (7) expression -> . IDENTIFIER
+    (9) expression -> . expression COMPARATOR expression
+    (12) expression -> . ( expression )
+    (13) expression -> . TAB expression
+
+    INT             shift and go to state 11
+    FLOAT           shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    (               shift and go to state 14
+    TAB             shift and go to state 15
+
+    expression                     shift and go to state 10
+
+state 6
+
+    (14) assignation -> IDENTIFIER . EQU expression
+
+    EQU             shift and go to state 16
+
+
+state 7
+
+    (10) structure -> IF . expression POINTS ENTER TAB programme #
+    (5) expression -> . INT
+    (6) expression -> . FLOAT
+    (7) expression -> . IDENTIFIER
+    (9) expression -> . expression COMPARATOR expression
+    (12) expression -> . ( expression )
+    (13) expression -> . TAB expression
+
+    INT             shift and go to state 11
+    FLOAT           shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    (               shift and go to state 14
+    TAB             shift and go to state 15
+
+    expression                     shift and go to state 17
+
+state 8
+
+    (11) structure -> WHILE . expression POINTS ENTER TAB programme #
+    (5) expression -> . INT
+    (6) expression -> . FLOAT
+    (7) expression -> . IDENTIFIER
+    (9) expression -> . expression COMPARATOR expression
+    (12) expression -> . ( expression )
+    (13) expression -> . TAB expression
+
+    INT             shift and go to state 11
+    FLOAT           shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    (               shift and go to state 14
+    TAB             shift and go to state 15
+
+    expression                     shift and go to state 18
+
+state 9
+
+    (2) programme -> statement ENTER . programme
+    (1) programme -> . statement
+    (2) programme -> . statement ENTER programme
+    (3) statement -> . assignation
+    (4) statement -> . structure
+    (8) statement -> . PRINT expression
+    (14) assignation -> . IDENTIFIER EQU expression
+    (10) structure -> . IF expression POINTS ENTER TAB programme #
+    (11) structure -> . WHILE expression POINTS ENTER TAB programme #
+
+    PRINT           shift and go to state 5
+    IDENTIFIER      shift and go to state 6
+    IF              shift and go to state 7
+    WHILE           shift and go to state 8
+
+    statement                      shift and go to state 2
+    programme                      shift and go to state 19
+    assignation                    shift and go to state 3
+    structure                      shift and go to state 4
+
+state 10
+
+    (8) statement -> PRINT expression .
+    (9) expression -> expression . COMPARATOR expression
+
+    ENTER           reduce using rule 8 (statement -> PRINT expression .)
+    $end            reduce using rule 8 (statement -> PRINT expression .)
+    #               reduce using rule 8 (statement -> PRINT expression .)
+    COMPARATOR      shift and go to state 20
+
+
+state 11
+
+    (5) expression -> INT .
+
+    COMPARATOR      reduce using rule 5 (expression -> INT .)
+    ENTER           reduce using rule 5 (expression -> INT .)
+    $end            reduce using rule 5 (expression -> INT .)
+    #               reduce using rule 5 (expression -> INT .)
+    POINTS          reduce using rule 5 (expression -> INT .)
+    )               reduce using rule 5 (expression -> INT .)
+
+
+state 12
+
+    (6) expression -> FLOAT .
+
+    COMPARATOR      reduce using rule 6 (expression -> FLOAT .)
+    ENTER           reduce using rule 6 (expression -> FLOAT .)
+    $end            reduce using rule 6 (expression -> FLOAT .)
+    #               reduce using rule 6 (expression -> FLOAT .)
+    POINTS          reduce using rule 6 (expression -> FLOAT .)
+    )               reduce using rule 6 (expression -> FLOAT .)
+
+
+state 13
+
+    (7) expression -> IDENTIFIER .
+
+    COMPARATOR      reduce using rule 7 (expression -> IDENTIFIER .)
+    ENTER           reduce using rule 7 (expression -> IDENTIFIER .)
+    $end            reduce using rule 7 (expression -> IDENTIFIER .)
+    #               reduce using rule 7 (expression -> IDENTIFIER .)
+    POINTS          reduce using rule 7 (expression -> IDENTIFIER .)
+    )               reduce using rule 7 (expression -> IDENTIFIER .)
+
+
+state 14
+
+    (12) expression -> ( . expression )
+    (5) expression -> . INT
+    (6) expression -> . FLOAT
+    (7) expression -> . IDENTIFIER
+    (9) expression -> . expression COMPARATOR expression
+    (12) expression -> . ( expression )
+    (13) expression -> . TAB expression
+
+    INT             shift and go to state 11
+    FLOAT           shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    (               shift and go to state 14
+    TAB             shift and go to state 15
+
+    expression                     shift and go to state 21
+
+state 15
+
+    (13) expression -> TAB . expression
+    (5) expression -> . INT
+    (6) expression -> . FLOAT
+    (7) expression -> . IDENTIFIER
+    (9) expression -> . expression COMPARATOR expression
+    (12) expression -> . ( expression )
+    (13) expression -> . TAB expression
+
+    INT             shift and go to state 11
+    FLOAT           shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    (               shift and go to state 14
+    TAB             shift and go to state 15
+
+    expression                     shift and go to state 22
+
+state 16
+
+    (14) assignation -> IDENTIFIER EQU . expression
+    (5) expression -> . INT
+    (6) expression -> . FLOAT
+    (7) expression -> . IDENTIFIER
+    (9) expression -> . expression COMPARATOR expression
+    (12) expression -> . ( expression )
+    (13) expression -> . TAB expression
+
+    INT             shift and go to state 11
+    FLOAT           shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    (               shift and go to state 14
+    TAB             shift and go to state 15
+
+    expression                     shift and go to state 23
+
+state 17
+
+    (10) structure -> IF expression . POINTS ENTER TAB programme #
+    (9) expression -> expression . COMPARATOR expression
+
+    POINTS          shift and go to state 24
+    COMPARATOR      shift and go to state 20
+
+
+state 18
+
+    (11) structure -> WHILE expression . POINTS ENTER TAB programme #
+    (9) expression -> expression . COMPARATOR expression
+
+    POINTS          shift and go to state 25
+    COMPARATOR      shift and go to state 20
+
+
+state 19
+
+    (2) programme -> statement ENTER programme .
+
+    $end            reduce using rule 2 (programme -> statement ENTER programme .)
+    #               reduce using rule 2 (programme -> statement ENTER programme .)
+
+
+state 20
+
+    (9) expression -> expression COMPARATOR . expression
+    (5) expression -> . INT
+    (6) expression -> . FLOAT
+    (7) expression -> . IDENTIFIER
+    (9) expression -> . expression COMPARATOR expression
+    (12) expression -> . ( expression )
+    (13) expression -> . TAB expression
+
+    INT             shift and go to state 11
+    FLOAT           shift and go to state 12
+    IDENTIFIER      shift and go to state 13
+    (               shift and go to state 14
+    TAB             shift and go to state 15
+
+    expression                     shift and go to state 26
+
+state 21
+
+    (12) expression -> ( expression . )
+    (9) expression -> expression . COMPARATOR expression
+
+    )               shift and go to state 27
+    COMPARATOR      shift and go to state 20
+
+
+state 22
+
+    (13) expression -> TAB expression .
+    (9) expression -> expression . COMPARATOR expression
+
+  ! shift/reduce conflict for COMPARATOR resolved as shift
+    ENTER           reduce using rule 13 (expression -> TAB expression .)
+    $end            reduce using rule 13 (expression -> TAB expression .)
+    #               reduce using rule 13 (expression -> TAB expression .)
+    POINTS          reduce using rule 13 (expression -> TAB expression .)
+    )               reduce using rule 13 (expression -> TAB expression .)
+    COMPARATOR      shift and go to state 20
+
+  ! COMPARATOR      [ reduce using rule 13 (expression -> TAB expression .) ]
+
+
+state 23
+
+    (14) assignation -> IDENTIFIER EQU expression .
+    (9) expression -> expression . COMPARATOR expression
+
+    ENTER           reduce using rule 14 (assignation -> IDENTIFIER EQU expression .)
+    $end            reduce using rule 14 (assignation -> IDENTIFIER EQU expression .)
+    #               reduce using rule 14 (assignation -> IDENTIFIER EQU expression .)
+    COMPARATOR      shift and go to state 20
+
+
+state 24
+
+    (10) structure -> IF expression POINTS . ENTER TAB programme #
+
+    ENTER           shift and go to state 28
+
+
+state 25
+
+    (11) structure -> WHILE expression POINTS . ENTER TAB programme #
+
+    ENTER           shift and go to state 29
+
+
+state 26
+
+    (9) expression -> expression COMPARATOR expression .
+    (9) expression -> expression . COMPARATOR expression
+
+  ! shift/reduce conflict for COMPARATOR resolved as shift
+    ENTER           reduce using rule 9 (expression -> expression COMPARATOR expression .)
+    $end            reduce using rule 9 (expression -> expression COMPARATOR expression .)
+    #               reduce using rule 9 (expression -> expression COMPARATOR expression .)
+    POINTS          reduce using rule 9 (expression -> expression COMPARATOR expression .)
+    )               reduce using rule 9 (expression -> expression COMPARATOR expression .)
+    COMPARATOR      shift and go to state 20
+
+  ! COMPARATOR      [ reduce using rule 9 (expression -> expression COMPARATOR expression .) ]
+
+
+state 27
+
+    (12) expression -> ( expression ) .
+
+    COMPARATOR      reduce using rule 12 (expression -> ( expression ) .)
+    ENTER           reduce using rule 12 (expression -> ( expression ) .)
+    $end            reduce using rule 12 (expression -> ( expression ) .)
+    #               reduce using rule 12 (expression -> ( expression ) .)
+    POINTS          reduce using rule 12 (expression -> ( expression ) .)
+    )               reduce using rule 12 (expression -> ( expression ) .)
+
+
+state 28
+
+    (10) structure -> IF expression POINTS ENTER . TAB programme #
+
+    TAB             shift and go to state 30
+
+
+state 29
+
+    (11) structure -> WHILE expression POINTS ENTER . TAB programme #
+
+    TAB             shift and go to state 31
+
+
+state 30
+
+    (10) structure -> IF expression POINTS ENTER TAB . programme #
+    (1) programme -> . statement
+    (2) programme -> . statement ENTER programme
+    (3) statement -> . assignation
+    (4) statement -> . structure
+    (8) statement -> . PRINT expression
+    (14) assignation -> . IDENTIFIER EQU expression
+    (10) structure -> . IF expression POINTS ENTER TAB programme #
+    (11) structure -> . WHILE expression POINTS ENTER TAB programme #
+
+    PRINT           shift and go to state 5
+    IDENTIFIER      shift and go to state 6
+    IF              shift and go to state 7
+    WHILE           shift and go to state 8
+
+    programme                      shift and go to state 32
+    statement                      shift and go to state 2
+    assignation                    shift and go to state 3
+    structure                      shift and go to state 4
+
+state 31
+
+    (11) structure -> WHILE expression POINTS ENTER TAB . programme #
+    (1) programme -> . statement
+    (2) programme -> . statement ENTER programme
+    (3) statement -> . assignation
+    (4) statement -> . structure
+    (8) statement -> . PRINT expression
+    (14) assignation -> . IDENTIFIER EQU expression
+    (10) structure -> . IF expression POINTS ENTER TAB programme #
+    (11) structure -> . WHILE expression POINTS ENTER TAB programme #
+
+    PRINT           shift and go to state 5
+    IDENTIFIER      shift and go to state 6
+    IF              shift and go to state 7
+    WHILE           shift and go to state 8
+
+    programme                      shift and go to state 33
+    statement                      shift and go to state 2
+    assignation                    shift and go to state 3
+    structure                      shift and go to state 4
+
+state 32
+
+    (10) structure -> IF expression POINTS ENTER TAB programme . #
+
+    #               shift and go to state 34
+
+
+state 33
+
+    (11) structure -> WHILE expression POINTS ENTER TAB programme . #
+
+    #               shift and go to state 35
+
+
+state 34
+
+    (10) structure -> IF expression POINTS ENTER TAB programme # .
+
+    ENTER           reduce using rule 10 (structure -> IF expression POINTS ENTER TAB programme # .)
+    $end            reduce using rule 10 (structure -> IF expression POINTS ENTER TAB programme # .)
+    #               reduce using rule 10 (structure -> IF expression POINTS ENTER TAB programme # .)
+
+
+state 35
+
+    (11) structure -> WHILE expression POINTS ENTER TAB programme # .
+
+    ENTER           reduce using rule 11 (structure -> WHILE expression POINTS ENTER TAB programme # .)
+    $end            reduce using rule 11 (structure -> WHILE expression POINTS ENTER TAB programme # .)
+    #               reduce using rule 11 (structure -> WHILE expression POINTS ENTER TAB programme # .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for COMPARATOR in state 22 resolved as shift
+WARNING: shift/reduce conflict for COMPARATOR in state 26 resolved as shift

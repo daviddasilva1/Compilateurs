@@ -1,0 +1,5 @@
+int a = 3;
+if(a) {
+	cout << a;
+int b = 5;
+}
