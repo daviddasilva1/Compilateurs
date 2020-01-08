@@ -22,6 +22,8 @@ operations = {
 	'>' : 'POSCOMP'
 }
 
+inLoop = None
+
 def whilecounter():
 	whilecounter.current += 1
 	return whilecounter.current
@@ -51,12 +53,16 @@ def compile(self):
 @addToClass(AST.AssignNode)
 def compile(self):
 	bytecode = ""
-	if isinstance(self.children[1].tok,float):
+	print(inLoop)
+	if inLoop:
+		bytecode +="\t"
+	else:
+		pass
+	if isinstance(self.children[1].tok,float):			
 		bytecode +="float"
 	else:
 		bytecode += "int"
 
-	print(self.children[1].tok)
 	bytecode += " %s" % self.children[0].tok+" = "
 	bytecode += self.children[1].compile()
 	bytecode +=";\n"
@@ -68,6 +74,11 @@ def compile(self):
 @addToClass(AST.PrintNode)
 def compile(self):
 	bytecode = ""
+	print(inLoop)
+	if inLoop:
+		bytecode +="\t"
+	else:
+		pass
 	bytecode += "cout << "
 	bytecode += self.children[0].compile()+";\n"
 
@@ -80,14 +91,10 @@ def compile(self):
 def compile(self):
 	bytecode = ""	
 	bytecode += self.children[0].tok
-	print(operations[self.op])
 	for key,value in operations.items():
 		if value == operations[self.op]:
 			bytecode += key
 	bytecode += self.children[1].tok
-
-
-
 	return bytecode
 	
 # noeud de boucle while
@@ -97,12 +104,16 @@ def compile(self):
 # réalise un saut conditionnel sur le résultat de la condition (empilé)
 @addToClass(AST.WhileNode)
 def compile(self):
+	global inLoop
 	counter = whilecounter()
 	bytecode = ""
-	bytecode += "while(%s) {" % self.children[0].tok
+	bytecode += "while(%s) {" % self.children[0].compile()
 	bytecode +="\n"
-	bytecode += "\t"+self.children[1].compile()
-	bytecode+="}"
+	inLoop=True
+	bytecode += self.children[1].compile()
+	bytecode+="}\n"
+	inLoop = False
+
 	return bytecode
 
 # noeud de boucle while
@@ -112,12 +123,16 @@ def compile(self):
 # réalise un saut conditionnel sur le résultat de la condition (empilé)
 @addToClass(AST.IfNode)
 def compile(self):
+	global inLoop
 	counter = whilecounter()
 	bytecode = ""
 	bytecode += "if(%s) {" % self.children[0].compile()
 	bytecode +="\n"
-	bytecode += "\t"+self.children[1].compile()
-	bytecode+="}"
+	inLoop=True
+	bytecode += self.children[1].compile()
+	bytecode+="}\n"
+	inLoop = False
+
 	return bytecode
 
 if __name__ == "__main__":

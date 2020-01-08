@@ -6,7 +6,8 @@ reserved_words = (
 	'range',
 	'for',
 	'in',
-	'while'
+	'while',
+	'else'
 )
 
 tokens = (
