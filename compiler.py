@@ -23,6 +23,7 @@ operations = {
 }
 
 inLoop = None
+counter =0
 
 def whilecounter():
 	whilecounter.current += 1
@@ -54,8 +55,10 @@ def compile(self):
 def compile(self):
 	bytecode = ""
 	print(inLoop)
-	if inLoop:
+	if counter==1:
 		bytecode +="\t"
+	elif counter==2:
+		bytecode +="\t\t"
 	else:
 		pass
 	if isinstance(self.children[1].tok,float):			
@@ -75,8 +78,10 @@ def compile(self):
 def compile(self):
 	bytecode = ""
 	print(inLoop)
-	if inLoop:
+	if counter==1:
 		bytecode +="\t"
+	elif counter==2:
+		bytecode +="\t\t"
 	else:
 		pass
 	bytecode += "cout << "
@@ -105,13 +110,24 @@ def compile(self):
 @addToClass(AST.WhileNode)
 def compile(self):
 	global inLoop
-	counter = whilecounter()
+	global counter
 	bytecode = ""
+
+	print(counter)
+
+	if counter==1 and inLoop:
+		bytecode +="\t"
+	elif counter==2 and inLoop:
+		bytecode +="\t\t"
+	else:
+		pass
 	bytecode += "while(%s) {" % self.children[0].compile()
+	counter +=1
 	bytecode +="\n"
 	inLoop=True
 	bytecode += self.children[1].compile()
 	bytecode+="}\n"
+	counter -=1
 	inLoop = False
 
 	return bytecode
@@ -124,13 +140,29 @@ def compile(self):
 @addToClass(AST.IfNode)
 def compile(self):
 	global inLoop
-	counter = whilecounter()
+	global counter
 	bytecode = ""
+
+
+	if counter==1 and inLoop:
+		bytecode +="\t"
+	elif counter==2 and inLoop:
+		bytecode +="\t\t"
+	else:
+		pass
 	bytecode += "if(%s) {" % self.children[0].compile()
+	counter +=1
+	print(counter)
 	bytecode +="\n"
 	inLoop=True
 	bytecode += self.children[1].compile()
-	bytecode+="}\n"
+	if counter==1 and inLoop:
+		bytecode +="}\n"
+	elif counter==2 and inLoop:
+		bytecode +="\t}\n"
+	else:
+		pass
+	counter -=1
 	inLoop = False
 
 	return bytecode

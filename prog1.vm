@@ -5,9 +5,9 @@ while(b<5) {
 	int d = 7;
 	cout << a;
 	float tities = 3.5;
-}
-if(a<4) {
-	int c = 5;
-	cout << 33;
+	if(a<4) {
+		int c = 5;
+		cout << 33;
+	}
 }
 int c = 5;

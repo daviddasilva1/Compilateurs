@@ -4,8 +4,8 @@ print(a)
 while b<5:
     d=7
     print(a)
-    tities = 3.5#
-if a<4:
-    c=5
-    print(33)#
+    tities = 3.5
+    if a<4:
+        c=5
+        print(33)##
 c=5
