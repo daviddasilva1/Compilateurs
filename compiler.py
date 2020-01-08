@@ -126,7 +126,10 @@ def compile(self):
 	bytecode +="\n"
 	inLoop=True
 	bytecode += self.children[1].compile()
-	bytecode+="}\n"
+	if counter==2:
+		bytecode +="\t}\n"
+	else:
+		bytecode +="}\n"
 	counter -=1
 	inLoop = False
 
@@ -144,9 +147,9 @@ def compile(self):
 	bytecode = ""
 
 
-	if counter==1 and inLoop:
+	if counter==1:
 		bytecode +="\t"
-	elif counter==2 and inLoop:
+	elif counter==2:
 		bytecode +="\t\t"
 	else:
 		pass
@@ -156,12 +159,11 @@ def compile(self):
 	bytecode +="\n"
 	inLoop=True
 	bytecode += self.children[1].compile()
-	if counter==1 and inLoop:
-		bytecode +="}\n"
-	elif counter==2 and inLoop:
+	if counter==2:
 		bytecode +="\t}\n"
 	else:
-		pass
+		bytecode +="}\n"
+
 	counter -=1
 	inLoop = False
 
