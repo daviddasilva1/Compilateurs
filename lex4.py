@@ -7,7 +7,8 @@ reserved_words = (
 	'for',
 	'in',
 	'while',
-	'else'
+	'else',
+	'def'
 )
 
 tokens = (

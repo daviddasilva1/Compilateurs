@@ -16,3 +16,9 @@ if(a<3) {
 		cout << a;
 	}
 }
+public void  check()
+{
+	if(a<3) {
+	cout << b;
+}
+}

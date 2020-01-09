@@ -169,6 +169,17 @@ def compile(self):
 
 	return bytecode
 
+@addToClass(AST.FunctionNode)
+def compile(self):
+	bytecode=""
+	bytecode += "public void "
+	print(self.children[0].tok)
+	bytecode +=  " %s" % self.children[0].tok
+	bytecode +="()\n{"
+	bytecode +="\n\t"+self.children[1].compile()
+	bytecode += "}"
+	return bytecode
+
 if __name__ == "__main__":
     from parser4 import parse
     import sys, os

@@ -39,6 +39,10 @@ def p_structure_if(p):
 	'''structure : IF expression POINTS ENTER TAB programme '#' '''
 	p[0] = AST.IfNode([p[2],p[6]])
 
+def p_structure_function(p):
+	'''structure : DEF expression '(' ')' POINTS TAB programme '#' '''
+	p[0] = AST.FunctionNode([p[2],p[7]])
+
 def p_structure_while(p):
 	''' structure : WHILE expression POINTS ENTER TAB programme '#' '''
 	p[0] = AST.WhileNode([p[2],p[6]])
