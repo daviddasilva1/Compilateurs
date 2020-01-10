@@ -1,12 +1,8 @@
 a=3
-a=3.5
+b=3.5
 print(a)
-while j<5:
-    d=7
-    print(a)
-    tities = 3.5
+while b<5:
     if a<5:
-        d=3+5
         y=8##
 c=5
 if a<3:

@@ -2,6 +2,8 @@ import AST
 from AST import addToClass
 import sys
 
+dict_variables = {}
+
 @addToClass(AST.Node)
 def thread(self, lastNode):
     for c in self.children:
@@ -18,6 +20,41 @@ def thread(self, lastNode):
     exitBody.addNext(beforeCond.next[-1])
 
     return self
+
+@addToClass(AST.AssignNode)
+def thread(self,lastNode):
+        global dict_variables
+
+        
+        if self.children[0].tok in dict_variables:
+            if isinstance(self.children[1].tok,float):
+                if dict_variables.get(self.children[0].tok)=='float':
+                    pass
+                else:
+                    print("error : confliting declaration int "+self.children[0].tok)
+                    sys.exit()
+            else:
+                if dict_variables.get(self.children[0].tok)=='int':
+                    pass
+                else:
+                    print("error : confliting declaration float "+self.children[0].tok)
+                    sys.exit()
+
+        if self.children[1].children:
+            dict_variables = {self.children[0].tok : 'unknown'}
+        else:
+            if isinstance(self.children[1].tok,float):
+                dict_variables = {self.children[0].tok : 'float'}
+            else:
+                dict_variables = {self.children[0].tok : 'int'}
+
+        
+        
+        for c in self.children:
+            lastNode = c.thread(lastNode)
+        lastNode.addNext(self)
+        return self
+        
 
 
 @addToClass(AST.OpNode)

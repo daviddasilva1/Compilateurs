@@ -120,6 +120,7 @@ class OpNode(Node):
         except AttributeError:
             self.nbargs = 1
         
+        
     def __repr__(self):
         return "%s (%s)" % (self.op, self.nbargs)
     
