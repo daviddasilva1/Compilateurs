@@ -17,7 +17,7 @@ def p_programme_recursive(p):
 
 def p_statement(p):
 	''' statement : assignation
-						| structure '''
+			| structure  '''
 	p[0] = p[1]
 	
 def p_expression_num_or_var(p):
@@ -26,6 +26,16 @@ def p_expression_num_or_var(p):
 		| IDENTIFIER 
 		 '''
 	p[0] = AST.TokenNode(p[1])
+
+def p_expression_op(p):
+    '''expression : expression MUL_OP expression 
+	   | expression ADD_OP expression'''
+    p[0] = AST.OpNode(p[2], [p[1], p[3]])
+
+def p_assign(p):
+	''' assignation : IDENTIFIER EQU expression '''
+	p[0] = AST.AssignNode([AST.TokenNode(p[1]),p[3]])
+
 
 def p_statement_print(p):
     ''' statement : PRINT expression '''
@@ -56,9 +66,7 @@ def p_expression_tab(p):
  	'''expression : TAB expression'''
  	p[0] = p[2]
 
-def p_assign(p):
-	''' assignation : IDENTIFIER EQU expression '''
-	p[0] = AST.AssignNode([AST.TokenNode(p[1]),p[3]])
+
 
 def p_error(p):
     print ("Syntax error in line %d" % p.lineno)

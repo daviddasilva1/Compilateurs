@@ -20,7 +20,9 @@ tokens = (
 	'EQU',
 	'ENTER',
 	'POINTS',
-	'TAB'
+	'TAB',
+	'ADD_OP',
+	'MUL_OP'
 	) + tuple(map(lambda s:s.upper(),reserved_words))
 
 
@@ -34,8 +36,10 @@ def t_ENTER(t):
 
 
 def t_ADD_OP(t):
-	r'\+|-'
+	r'[+-]'
 	return t
+
+
 
 def t_POINTS(t):
 	r':'
@@ -46,7 +50,7 @@ def t_EQU(t):
 	return t	
 	
 def t_MUL_OP(t):
-	r'\*|/'
+	r'[*/]'
 	return t
 
 def t_COMPARATOR(t):
@@ -102,6 +106,7 @@ def t_newline(t):
 def t_error(t):
 	print ("Illegal character '%s'" % t.value[0])
 	t.lexer.skip(1)
+
 
 lex.lex()
 

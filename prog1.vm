@@ -1,12 +1,13 @@
 int a = 3;
-float b = 3.5;
+a = 3.5;
 cout << a;
-while(b<5) {
+while(j<5) {
 	int d = 7;
 	cout << a;
 	float tities = 3.5;
 	if(a<5) {
-		cout << c;
+		d = 3+5;
+		int y = 8;
 	}
 }
 int c = 5;
@@ -18,7 +19,7 @@ if(a<3) {
 }
 public void  check()
 {
-	if(a<3) {
-	cout << b;
-}
+	while(a<3) {
+		cout << b;
+	}
 }
