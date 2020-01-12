@@ -27,8 +27,10 @@ operations = {
 
 inLoop = None
 counter =0
+cpt = 0
 
-dict_variables=[]
+from threader import dict_variables
+used_variables = []
 
 def whilecounter():
 	whilecounter.current += 1
@@ -52,22 +54,21 @@ def compile(self):
 @addToClass(AST.AssignNode)
 def compile(self):
 	bytecode = ""
+	global cpt
 	if counter==1:
 		bytecode +="\t"
 	elif counter==2:
 		bytecode +="\t\t"
 	else:
 		pass
-	if self.children[0].tok not in dict_variables:	
-		dict_variables.append(self.children[0].tok)	
-		if isinstance(self.children[1].tok,float):		
-			bytecode +="float "
-		else:
-			bytecode += "int "
-	else:
-		pass
 
-	bytecode += "%s" % self.children[0].tok+" = "
+	
+	if self.children[0].tok not in bytecode and self.children[0].tok not in used_variables:
+		bytecode += dict_variables.get(self.children[0].tok)+" "
+		bytecode += self.children[0].tok + " ="
+		used_variables.append(self.children[0].tok)
+	else:
+		bytecode += self.children[0].tok + " ="
 
 	bytecode += self.children[1].compile()
 	bytecode +=";\n"
@@ -77,7 +78,6 @@ def compile(self):
 @addToClass(AST.PrintNode)
 def compile(self):
 	bytecode = ""
-	print(inLoop)
 	if counter==1:
 		bytecode +="\t"
 	elif counter==2:
@@ -108,8 +108,6 @@ def compile(self):
 	global inLoop
 	global counter
 	bytecode = ""
-
-	print(counter)
 
 	if counter==1 and inLoop:
 		bytecode +="\t"
@@ -146,7 +144,6 @@ def compile(self):
 		pass
 	bytecode += "if(%s) {" % self.children[0].compile()
 	counter +=1
-	print(counter)
 	bytecode +="\n"
 	inLoop=True
 	bytecode += self.children[1].compile()

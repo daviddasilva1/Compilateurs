@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "ADD_OP COMPARATOR DEF ELSE ENTER EQU FLOAT FOR IDENTIFIER IF ILLEGAL IN INT MUL_OP POINTS PRINT RANGE TAB WHILE programme : statement   programme : statement ENTER programme  statement : assignation\n\t\t\t| structure  expression : INT\n\t\t| FLOAT \n\t\t| IDENTIFIER \n\t\t expression : expression MUL_OP expression \n\t   | expression ADD_OP expression assignation : IDENTIFIER EQU expression  statement : PRINT expression  expression : expression COMPARATOR expressionstructure : IF expression POINTS ENTER TAB programme '#' structure : DEF expression '(' ')' POINTS TAB programme '#'  structure : WHILE expression POINTS ENTER TAB programme '#' expression : '(' expression ')' expression : TAB expression"
+_lr_signature = "ADD_OP COMPARATOR DEF ENTER EQU FLOAT IDENTIFIER IF INT MUL_OP POINTS PRINT TAB WHILE programme : statement   programme : statement ENTER programme  statement : assignation\n\t\t\t| structure  expression : INT\n\t\t| FLOAT \n\t\t| IDENTIFIER \n\t\t expression : expression MUL_OP expression \n\t   | expression ADD_OP expression\n\t   | expression COMPARATOR expression assignation : IDENTIFIER EQU expression  statement : PRINT expression structure : IF expression POINTS ENTER TAB programme '#' structure : DEF expression '(' ')' POINTS ENTER TAB programme '#'  structure : WHILE expression POINTS ENTER TAB programme '#' expression : '(' expression ')' "
     
-_lr_action_items = {'PRINT':([0,10,38,40,42,],[5,5,5,5,5,]),'IDENTIFIER':([0,5,7,8,9,10,15,16,17,22,23,24,38,40,42,],[6,14,14,14,14,6,14,14,14,14,14,14,6,6,6,]),'IF':([0,10,38,40,42,],[7,7,7,7,7,]),'DEF':([0,10,38,40,42,],[8,8,8,8,8,]),'WHILE':([0,10,38,40,42,],[9,9,9,9,9,]),'$end':([1,2,3,4,11,12,13,14,21,26,27,31,32,33,34,44,46,47,],[0,-1,-3,-4,-11,-5,-6,-7,-2,-17,-10,-8,-9,-12,-16,-13,-15,-14,]),'#':([2,3,4,11,12,13,14,21,26,27,31,32,33,34,41,43,44,45,46,47,],[-1,-3,-4,-11,-5,-6,-7,-2,-17,-10,-8,-9,-12,-16,44,46,-13,47,-15,-14,]),'ENTER':([2,3,4,11,12,13,14,26,27,28,30,31,32,33,34,44,46,47,],[10,-3,-4,-11,-5,-6,-7,-17,-10,35,37,-8,-9,-12,-16,-13,-15,-14,]),'INT':([5,7,8,9,15,16,17,22,23,24,],[12,12,12,12,12,12,12,12,12,12,]),'FLOAT':([5,7,8,9,15,16,17,22,23,24,],[13,13,13,13,13,13,13,13,13,13,]),'(':([5,7,8,9,12,13,14,15,16,17,19,22,23,24,26,31,32,33,34,],[15,15,15,15,-5,-6,-7,15,15,15,29,15,15,15,-17,-8,-9,-12,-16,]),'TAB':([5,7,8,9,15,16,17,22,23,24,35,37,39,],[16,16,16,16,16,16,16,16,16,16,38,40,42,]),'EQU':([6,],[17,]),'MUL_OP':([11,12,13,14,18,19,20,25,26,27,31,32,33,34,],[22,-5,-6,-7,22,22,22,22,22,22,22,22,22,-16,]),'ADD_OP':([11,12,13,14,18,19,20,25,26,27,31,32,33,34,],[23,-5,-6,-7,23,23,23,23,23,23,23,23,23,-16,]),'COMPARATOR':([11,12,13,14,18,19,20,25,26,27,31,32,33,34,],[24,-5,-6,-7,24,24,24,24,24,24,24,24,24,-16,]),'POINTS':([12,13,14,18,20,26,31,32,33,34,36,],[-5,-6,-7,28,30,-17,-8,-9,-12,-16,39,]),')':([12,13,14,25,26,29,31,32,33,34,],[-5,-6,-7,34,-17,36,-8,-9,-12,-16,]),}
+_lr_action_items = {'PRINT':([0,10,36,38,43,],[5,5,5,5,5,]),'IDENTIFIER':([0,5,7,8,9,10,15,16,21,22,23,36,38,43,],[6,14,14,14,14,6,14,14,14,14,14,6,6,6,]),'IF':([0,10,36,38,43,],[7,7,7,7,7,]),'DEF':([0,10,36,38,43,],[8,8,8,8,8,]),'WHILE':([0,10,36,38,43,],[9,9,9,9,9,]),'$end':([1,2,3,4,11,12,13,14,20,25,29,30,31,32,42,44,46,],[0,-1,-3,-4,-12,-5,-6,-7,-2,-11,-8,-9,-10,-16,-13,-15,-14,]),'#':([2,3,4,11,12,13,14,20,25,29,30,31,32,39,41,42,44,45,46,],[-1,-3,-4,-12,-5,-6,-7,-2,-11,-8,-9,-10,-16,42,44,-13,-15,46,-14,]),'ENTER':([2,3,4,11,12,13,14,25,26,28,29,30,31,32,37,42,44,46,],[10,-3,-4,-12,-5,-6,-7,-11,33,35,-8,-9,-10,-16,40,-13,-15,-14,]),'INT':([5,7,8,9,15,16,21,22,23,],[12,12,12,12,12,12,12,12,12,]),'FLOAT':([5,7,8,9,15,16,21,22,23,],[13,13,13,13,13,13,13,13,13,]),'(':([5,7,8,9,12,13,14,15,16,18,21,22,23,29,30,31,32,],[15,15,15,15,-5,-6,-7,15,15,27,15,15,15,-8,-9,-10,-16,]),'EQU':([6,],[16,]),'MUL_OP':([11,12,13,14,17,18,19,24,25,29,30,31,32,],[21,-5,-6,-7,21,21,21,21,21,21,21,21,-16,]),'ADD_OP':([11,12,13,14,17,18,19,24,25,29,30,31,32,],[22,-5,-6,-7,22,22,22,22,22,22,22,22,-16,]),'COMPARATOR':([11,12,13,14,17,18,19,24,25,29,30,31,32,],[23,-5,-6,-7,23,23,23,23,23,23,23,23,-16,]),'POINTS':([12,13,14,17,19,29,30,31,32,34,],[-5,-6,-7,26,28,-8,-9,-10,-16,37,]),')':([12,13,14,24,27,29,30,31,32,],[-5,-6,-7,32,34,-8,-9,-10,-16,]),'TAB':([33,35,40,],[36,38,43,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'programme':([0,10,38,40,42,],[1,21,41,43,45,]),'statement':([0,10,38,40,42,],[2,2,2,2,2,]),'assignation':([0,10,38,40,42,],[3,3,3,3,3,]),'structure':([0,10,38,40,42,],[4,4,4,4,4,]),'expression':([5,7,8,9,15,16,17,22,23,24,],[11,18,19,20,25,26,27,31,32,33,]),}
+_lr_goto_items = {'programme':([0,10,36,38,43,],[1,20,39,41,45,]),'statement':([0,10,36,38,43,],[2,2,2,2,2,]),'assignation':([0,10,36,38,43,],[3,3,3,3,3,]),'structure':([0,10,36,38,43,],[4,4,4,4,4,]),'expression':([5,7,8,9,15,16,21,22,23,],[11,17,18,19,24,25,29,30,31,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -36,12 +36,11 @@ _lr_productions = [
   ('expression -> IDENTIFIER','expression',1,'p_expression_num_or_var','parser4.py',26),
   ('expression -> expression MUL_OP expression','expression',3,'p_expression_op','parser4.py',31),
   ('expression -> expression ADD_OP expression','expression',3,'p_expression_op','parser4.py',32),
-  ('assignation -> IDENTIFIER EQU expression','assignation',3,'p_assign','parser4.py',36),
-  ('statement -> PRINT expression','statement',2,'p_statement_print','parser4.py',41),
-  ('expression -> expression COMPARATOR expression','expression',3,'p_expression_comp','parser4.py',45),
-  ('structure -> IF expression POINTS ENTER TAB programme #','structure',7,'p_structure_if','parser4.py',49),
-  ('structure -> DEF expression ( ) POINTS TAB programme #','structure',8,'p_structure_function','parser4.py',53),
-  ('structure -> WHILE expression POINTS ENTER TAB programme #','structure',7,'p_structure_while','parser4.py',57),
-  ('expression -> ( expression )','expression',3,'p_expression_paren','parser4.py',61),
-  ('expression -> TAB expression','expression',2,'p_expression_tab','parser4.py',66),
+  ('expression -> expression COMPARATOR expression','expression',3,'p_expression_op','parser4.py',33),
+  ('assignation -> IDENTIFIER EQU expression','assignation',3,'p_assign','parser4.py',37),
+  ('statement -> PRINT expression','statement',2,'p_statement_print','parser4.py',42),
+  ('structure -> IF expression POINTS ENTER TAB programme #','structure',7,'p_structure_if','parser4.py',47),
+  ('structure -> DEF expression ( ) POINTS ENTER TAB programme #','structure',9,'p_structure_function','parser4.py',51),
+  ('structure -> WHILE expression POINTS ENTER TAB programme #','structure',7,'p_structure_while','parser4.py',55),
+  ('expression -> ( expression )','expression',3,'p_expression_paren','parser4.py',59),
 ]

@@ -3,18 +3,13 @@ import ply.lex as lex
 reserved_words = (
 	'if',
 	'print',
-	'range',
-	'for',
-	'in',
 	'while',
-	'else',
 	'def'
 )
 
 tokens = (
 	'COMPARATOR',
 	'IDENTIFIER',
-	'ILLEGAL',
 	'FLOAT',
 	'INT',
 	'EQU',
@@ -23,7 +18,7 @@ tokens = (
 	'TAB',
 	'ADD_OP',
 	'MUL_OP'
-	) + tuple(map(lambda s:s.upper(),reserved_words))
+) + tuple(map(lambda s:s.upper(),reserved_words))
 
 
 

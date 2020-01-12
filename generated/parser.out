@@ -1,13 +1,5 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    ELSE
-    FOR
-    ILLEGAL
-    IN
-    RANGE
-
 Grammar
 
 Rule 0     S' -> programme
@@ -20,14 +12,13 @@ Rule 6     expression -> FLOAT
 Rule 7     expression -> IDENTIFIER
 Rule 8     expression -> expression MUL_OP expression
 Rule 9     expression -> expression ADD_OP expression
-Rule 10    assignation -> IDENTIFIER EQU expression
-Rule 11    statement -> PRINT expression
-Rule 12    expression -> expression COMPARATOR expression
+Rule 10    expression -> expression COMPARATOR expression
+Rule 11    assignation -> IDENTIFIER EQU expression
+Rule 12    statement -> PRINT expression
 Rule 13    structure -> IF expression POINTS ENTER TAB programme #
-Rule 14    structure -> DEF expression ( ) POINTS TAB programme #
+Rule 14    structure -> DEF expression ( ) POINTS ENTER TAB programme #
 Rule 15    structure -> WHILE expression POINTS ENTER TAB programme #
 Rule 16    expression -> ( expression )
-Rule 17    expression -> TAB expression
 
 Terminals, with rules where they appear
 
@@ -35,30 +26,25 @@ Terminals, with rules where they appear
 (                    : 14 16
 )                    : 14 16
 ADD_OP               : 9
-COMPARATOR           : 12
+COMPARATOR           : 10
 DEF                  : 14
-ELSE                 : 
-ENTER                : 2 13 15
-EQU                  : 10
+ENTER                : 2 13 14 15
+EQU                  : 11
 FLOAT                : 6
-FOR                  : 
-IDENTIFIER           : 7 10
+IDENTIFIER           : 7 11
 IF                   : 13
-ILLEGAL              : 
-IN                   : 
 INT                  : 5
 MUL_OP               : 8
 POINTS               : 13 14 15
-PRINT                : 11
-RANGE                : 
-TAB                  : 13 14 15 17
+PRINT                : 12
+TAB                  : 13 14 15
 WHILE                : 15
 error                : 
 
 Nonterminals, with rules where they appear
 
 assignation          : 3
-expression           : 8 8 9 9 10 11 12 12 13 14 15 16 17
+expression           : 8 8 9 9 10 10 11 12 13 14 15 16
 programme            : 2 13 14 15 0
 statement            : 1 2
 structure            : 4
@@ -72,10 +58,10 @@ state 0
     (2) programme -> . statement ENTER programme
     (3) statement -> . assignation
     (4) statement -> . structure
-    (11) statement -> . PRINT expression
-    (10) assignation -> . IDENTIFIER EQU expression
+    (12) statement -> . PRINT expression
+    (11) assignation -> . IDENTIFIER EQU expression
     (13) structure -> . IF expression POINTS ENTER TAB programme #
-    (14) structure -> . DEF expression ( ) POINTS TAB programme #
+    (14) structure -> . DEF expression ( ) POINTS ENTER TAB programme #
     (15) structure -> . WHILE expression POINTS ENTER TAB programme #
 
     PRINT           shift and go to state 5
@@ -125,29 +111,27 @@ state 4
 
 state 5
 
-    (11) statement -> PRINT . expression
+    (12) statement -> PRINT . expression
     (5) expression -> . INT
     (6) expression -> . FLOAT
     (7) expression -> . IDENTIFIER
     (8) expression -> . expression MUL_OP expression
     (9) expression -> . expression ADD_OP expression
-    (12) expression -> . expression COMPARATOR expression
+    (10) expression -> . expression COMPARATOR expression
     (16) expression -> . ( expression )
-    (17) expression -> . TAB expression
 
     INT             shift and go to state 12
     FLOAT           shift and go to state 13
     IDENTIFIER      shift and go to state 14
     (               shift and go to state 15
-    TAB             shift and go to state 16
 
     expression                     shift and go to state 11
 
 state 6
 
-    (10) assignation -> IDENTIFIER . EQU expression
+    (11) assignation -> IDENTIFIER . EQU expression
 
-    EQU             shift and go to state 17
+    EQU             shift and go to state 16
 
 
 state 7
@@ -158,37 +142,33 @@ state 7
     (7) expression -> . IDENTIFIER
     (8) expression -> . expression MUL_OP expression
     (9) expression -> . expression ADD_OP expression
-    (12) expression -> . expression COMPARATOR expression
+    (10) expression -> . expression COMPARATOR expression
     (16) expression -> . ( expression )
-    (17) expression -> . TAB expression
 
     INT             shift and go to state 12
     FLOAT           shift and go to state 13
     IDENTIFIER      shift and go to state 14
     (               shift and go to state 15
-    TAB             shift and go to state 16
 
-    expression                     shift and go to state 18
+    expression                     shift and go to state 17
 
 state 8
 
-    (14) structure -> DEF . expression ( ) POINTS TAB programme #
+    (14) structure -> DEF . expression ( ) POINTS ENTER TAB programme #
     (5) expression -> . INT
     (6) expression -> . FLOAT
     (7) expression -> . IDENTIFIER
     (8) expression -> . expression MUL_OP expression
     (9) expression -> . expression ADD_OP expression
-    (12) expression -> . expression COMPARATOR expression
+    (10) expression -> . expression COMPARATOR expression
     (16) expression -> . ( expression )
-    (17) expression -> . TAB expression
 
     INT             shift and go to state 12
     FLOAT           shift and go to state 13
     IDENTIFIER      shift and go to state 14
     (               shift and go to state 15
-    TAB             shift and go to state 16
 
-    expression                     shift and go to state 19
+    expression                     shift and go to state 18
 
 state 9
 
@@ -198,17 +178,15 @@ state 9
     (7) expression -> . IDENTIFIER
     (8) expression -> . expression MUL_OP expression
     (9) expression -> . expression ADD_OP expression
-    (12) expression -> . expression COMPARATOR expression
+    (10) expression -> . expression COMPARATOR expression
     (16) expression -> . ( expression )
-    (17) expression -> . TAB expression
 
     INT             shift and go to state 12
     FLOAT           shift and go to state 13
     IDENTIFIER      shift and go to state 14
     (               shift and go to state 15
-    TAB             shift and go to state 16
 
-    expression                     shift and go to state 20
+    expression                     shift and go to state 19
 
 state 10
 
@@ -217,10 +195,10 @@ state 10
     (2) programme -> . statement ENTER programme
     (3) statement -> . assignation
     (4) statement -> . structure
-    (11) statement -> . PRINT expression
-    (10) assignation -> . IDENTIFIER EQU expression
+    (12) statement -> . PRINT expression
+    (11) assignation -> . IDENTIFIER EQU expression
     (13) structure -> . IF expression POINTS ENTER TAB programme #
-    (14) structure -> . DEF expression ( ) POINTS TAB programme #
+    (14) structure -> . DEF expression ( ) POINTS ENTER TAB programme #
     (15) structure -> . WHILE expression POINTS ENTER TAB programme #
 
     PRINT           shift and go to state 5
@@ -230,23 +208,23 @@ state 10
     WHILE           shift and go to state 9
 
     statement                      shift and go to state 2
-    programme                      shift and go to state 21
+    programme                      shift and go to state 20
     assignation                    shift and go to state 3
     structure                      shift and go to state 4
 
 state 11
 
-    (11) statement -> PRINT expression .
+    (12) statement -> PRINT expression .
     (8) expression -> expression . MUL_OP expression
     (9) expression -> expression . ADD_OP expression
-    (12) expression -> expression . COMPARATOR expression
+    (10) expression -> expression . COMPARATOR expression
 
-    ENTER           reduce using rule 11 (statement -> PRINT expression .)
-    $end            reduce using rule 11 (statement -> PRINT expression .)
-    #               reduce using rule 11 (statement -> PRINT expression .)
-    MUL_OP          shift and go to state 22
-    ADD_OP          shift and go to state 23
-    COMPARATOR      shift and go to state 24
+    ENTER           reduce using rule 12 (statement -> PRINT expression .)
+    $end            reduce using rule 12 (statement -> PRINT expression .)
+    #               reduce using rule 12 (statement -> PRINT expression .)
+    MUL_OP          shift and go to state 21
+    ADD_OP          shift and go to state 22
+    COMPARATOR      shift and go to state 23
 
 
 state 12
@@ -302,98 +280,74 @@ state 15
     (7) expression -> . IDENTIFIER
     (8) expression -> . expression MUL_OP expression
     (9) expression -> . expression ADD_OP expression
-    (12) expression -> . expression COMPARATOR expression
+    (10) expression -> . expression COMPARATOR expression
     (16) expression -> . ( expression )
-    (17) expression -> . TAB expression
 
     INT             shift and go to state 12
     FLOAT           shift and go to state 13
     IDENTIFIER      shift and go to state 14
     (               shift and go to state 15
-    TAB             shift and go to state 16
 
-    expression                     shift and go to state 25
+    expression                     shift and go to state 24
 
 state 16
 
-    (17) expression -> TAB . expression
+    (11) assignation -> IDENTIFIER EQU . expression
     (5) expression -> . INT
     (6) expression -> . FLOAT
     (7) expression -> . IDENTIFIER
     (8) expression -> . expression MUL_OP expression
     (9) expression -> . expression ADD_OP expression
-    (12) expression -> . expression COMPARATOR expression
+    (10) expression -> . expression COMPARATOR expression
     (16) expression -> . ( expression )
-    (17) expression -> . TAB expression
 
     INT             shift and go to state 12
     FLOAT           shift and go to state 13
     IDENTIFIER      shift and go to state 14
     (               shift and go to state 15
-    TAB             shift and go to state 16
 
-    expression                     shift and go to state 26
+    expression                     shift and go to state 25
 
 state 17
-
-    (10) assignation -> IDENTIFIER EQU . expression
-    (5) expression -> . INT
-    (6) expression -> . FLOAT
-    (7) expression -> . IDENTIFIER
-    (8) expression -> . expression MUL_OP expression
-    (9) expression -> . expression ADD_OP expression
-    (12) expression -> . expression COMPARATOR expression
-    (16) expression -> . ( expression )
-    (17) expression -> . TAB expression
-
-    INT             shift and go to state 12
-    FLOAT           shift and go to state 13
-    IDENTIFIER      shift and go to state 14
-    (               shift and go to state 15
-    TAB             shift and go to state 16
-
-    expression                     shift and go to state 27
-
-state 18
 
     (13) structure -> IF expression . POINTS ENTER TAB programme #
     (8) expression -> expression . MUL_OP expression
     (9) expression -> expression . ADD_OP expression
-    (12) expression -> expression . COMPARATOR expression
+    (10) expression -> expression . COMPARATOR expression
 
-    POINTS          shift and go to state 28
-    MUL_OP          shift and go to state 22
-    ADD_OP          shift and go to state 23
-    COMPARATOR      shift and go to state 24
+    POINTS          shift and go to state 26
+    MUL_OP          shift and go to state 21
+    ADD_OP          shift and go to state 22
+    COMPARATOR      shift and go to state 23
+
+
+state 18
+
+    (14) structure -> DEF expression . ( ) POINTS ENTER TAB programme #
+    (8) expression -> expression . MUL_OP expression
+    (9) expression -> expression . ADD_OP expression
+    (10) expression -> expression . COMPARATOR expression
+
+    (               shift and go to state 27
+    MUL_OP          shift and go to state 21
+    ADD_OP          shift and go to state 22
+    COMPARATOR      shift and go to state 23
 
 
 state 19
 
-    (14) structure -> DEF expression . ( ) POINTS TAB programme #
-    (8) expression -> expression . MUL_OP expression
-    (9) expression -> expression . ADD_OP expression
-    (12) expression -> expression . COMPARATOR expression
-
-    (               shift and go to state 29
-    MUL_OP          shift and go to state 22
-    ADD_OP          shift and go to state 23
-    COMPARATOR      shift and go to state 24
-
-
-state 20
-
     (15) structure -> WHILE expression . POINTS ENTER TAB programme #
     (8) expression -> expression . MUL_OP expression
     (9) expression -> expression . ADD_OP expression
-    (12) expression -> expression . COMPARATOR expression
+    (10) expression -> expression . COMPARATOR expression
 
-    POINTS          shift and go to state 30
-    MUL_OP          shift and go to state 22
-    ADD_OP          shift and go to state 23
-    COMPARATOR      shift and go to state 24
+    POINTS          shift and go to state 28
+    MUL_OP          shift and go to state 21
+    ADD_OP          shift and go to state 22
+    COMPARATOR      shift and go to state 23
 
 
-state 21
+state 20
 
     (2) programme -> statement ENTER programme .
 
@@ -401,7 +355,7 @@ state 21
     #               reduce using rule 2 (programme -> statement ENTER programme .)
 
 
-state 22
+state 21
 
     (8) expression -> expression MUL_OP . expression
     (5) expression -> . INT
@@ -409,19 +363,17 @@ state 22
     (7) expression -> . IDENTIFIER
     (8) expression -> . expression MUL_OP expression
     (9) expression -> . expression ADD_OP expression
-    (12) expression -> . expression COMPARATOR expression
+    (10) expression -> . expression COMPARATOR expression
     (16) expression -> . ( expression )
-    (17) expression -> . TAB expression
 
     INT             shift and go to state 12
     FLOAT           shift and go to state 13
     IDENTIFIER      shift and go to state 14
     (               shift and go to state 15
-    TAB             shift and go to state 16
 
-    expression                     shift and go to state 31
+    expression                     shift and go to state 29
 
-state 23
+state 22
 
     (9) expression -> expression ADD_OP . expression
     (5) expression -> . INT
@@ -429,118 +381,89 @@ state 23
     (7) expression -> . IDENTIFIER
     (8) expression -> . expression MUL_OP expression
     (9) expression -> . expression ADD_OP expression
-    (12) expression -> . expression COMPARATOR expression
+    (10) expression -> . expression COMPARATOR expression
     (16) expression -> . ( expression )
-    (17) expression -> . TAB expression
 
     INT             shift and go to state 12
     FLOAT           shift and go to state 13
     IDENTIFIER      shift and go to state 14
     (               shift and go to state 15
-    TAB             shift and go to state 16
 
-    expression                     shift and go to state 32
+    expression                     shift and go to state 30
 
-state 24
+state 23
 
-    (12) expression -> expression COMPARATOR . expression
+    (10) expression -> expression COMPARATOR . expression
     (5) expression -> . INT
     (6) expression -> . FLOAT
     (7) expression -> . IDENTIFIER
     (8) expression -> . expression MUL_OP expression
     (9) expression -> . expression ADD_OP expression
-    (12) expression -> . expression COMPARATOR expression
+    (10) expression -> . expression COMPARATOR expression
     (16) expression -> . ( expression )
-    (17) expression -> . TAB expression
 
     INT             shift and go to state 12
     FLOAT           shift and go to state 13
     IDENTIFIER      shift and go to state 14
     (               shift and go to state 15
-    TAB             shift and go to state 16
 
-    expression                     shift and go to state 33
+    expression                     shift and go to state 31
 
-state 25
+state 24
 
     (16) expression -> ( expression . )
     (8) expression -> expression . MUL_OP expression
     (9) expression -> expression . ADD_OP expression
-    (12) expression -> expression . COMPARATOR expression
+    (10) expression -> expression . COMPARATOR expression
 
-    )               shift and go to state 34
-    MUL_OP          shift and go to state 22
-    ADD_OP          shift and go to state 23
-    COMPARATOR      shift and go to state 24
+    )               shift and go to state 32
+    MUL_OP          shift and go to state 21
+    ADD_OP          shift and go to state 22
+    COMPARATOR      shift and go to state 23
+
+
+state 25
+
+    (11) assignation -> IDENTIFIER EQU expression .
+    (8) expression -> expression . MUL_OP expression
+    (9) expression -> expression . ADD_OP expression
+    (10) expression -> expression . COMPARATOR expression
+
+    ENTER           reduce using rule 11 (assignation -> IDENTIFIER EQU expression .)
+    $end            reduce using rule 11 (assignation -> IDENTIFIER EQU expression .)
+    #               reduce using rule 11 (assignation -> IDENTIFIER EQU expression .)
+    MUL_OP          shift and go to state 21
+    ADD_OP          shift and go to state 22
+    COMPARATOR      shift and go to state 23
 
 
 state 26
 
-    (17) expression -> TAB expression .
-    (8) expression -> expression . MUL_OP expression
-    (9) expression -> expression . ADD_OP expression
-    (12) expression -> expression . COMPARATOR expression
+    (13) structure -> IF expression POINTS . ENTER TAB programme #
 
-  ! shift/reduce conflict for MUL_OP resolved as shift
-  ! shift/reduce conflict for ADD_OP resolved as shift
-  ! shift/reduce conflict for COMPARATOR resolved as shift
-    ENTER           reduce using rule 17 (expression -> TAB expression .)
-    $end            reduce using rule 17 (expression -> TAB expression .)
-    #               reduce using rule 17 (expression -> TAB expression .)
-    POINTS          reduce using rule 17 (expression -> TAB expression .)
-    (               reduce using rule 17 (expression -> TAB expression .)
-    )               reduce using rule 17 (expression -> TAB expression .)
-    MUL_OP          shift and go to state 22
-    ADD_OP          shift and go to state 23
-    COMPARATOR      shift and go to state 24
-
-  ! MUL_OP          [ reduce using rule 17 (expression -> TAB expression .) ]
-  ! ADD_OP          [ reduce using rule 17 (expression -> TAB expression .) ]
-  ! COMPARATOR      [ reduce using rule 17 (expression -> TAB expression .) ]
+    ENTER           shift and go to state 33
 
 
 state 27
 
-    (10) assignation -> IDENTIFIER EQU expression .
-    (8) expression -> expression . MUL_OP expression
-    (9) expression -> expression . ADD_OP expression
-    (12) expression -> expression . COMPARATOR expression
+    (14) structure -> DEF expression ( . ) POINTS ENTER TAB programme #
 
-    ENTER           reduce using rule 10 (assignation -> IDENTIFIER EQU expression .)
-    $end            reduce using rule 10 (assignation -> IDENTIFIER EQU expression .)
-    #               reduce using rule 10 (assignation -> IDENTIFIER EQU expression .)
-    MUL_OP          shift and go to state 22
-    ADD_OP          shift and go to state 23
-    COMPARATOR      shift and go to state 24
+    )               shift and go to state 34
 
 
 state 28
 
-    (13) structure -> IF expression POINTS . ENTER TAB programme #
+    (15) structure -> WHILE expression POINTS . ENTER TAB programme #
 
     ENTER           shift and go to state 35
 
 
 state 29
 
-    (14) structure -> DEF expression ( . ) POINTS TAB programme #
-
-    )               shift and go to state 36
-
-
-state 30
-
-    (15) structure -> WHILE expression POINTS . ENTER TAB programme #
-
-    ENTER           shift and go to state 37
-
-
-state 31
-
     (8) expression -> expression MUL_OP expression .
     (8) expression -> expression . MUL_OP expression
     (9) expression -> expression . ADD_OP expression
-    (12) expression -> expression . COMPARATOR expression
+    (10) expression -> expression . COMPARATOR expression
 
   ! shift/reduce conflict for MUL_OP resolved as shift
   ! shift/reduce conflict for ADD_OP resolved as shift
@@ -551,21 +474,21 @@ state 31
     POINTS          reduce using rule 8 (expression -> expression MUL_OP expression .)
     (               reduce using rule 8 (expression -> expression MUL_OP expression .)
     )               reduce using rule 8 (expression -> expression MUL_OP expression .)
-    MUL_OP          shift and go to state 22
-    ADD_OP          shift and go to state 23
-    COMPARATOR      shift and go to state 24
+    MUL_OP          shift and go to state 21
+    ADD_OP          shift and go to state 22
+    COMPARATOR      shift and go to state 23
 
   ! MUL_OP          [ reduce using rule 8 (expression -> expression MUL_OP expression .) ]
   ! ADD_OP          [ reduce using rule 8 (expression -> expression MUL_OP expression .) ]
   ! COMPARATOR      [ reduce using rule 8 (expression -> expression MUL_OP expression .) ]
 
 
-state 32
+state 30
 
     (9) expression -> expression ADD_OP expression .
     (8) expression -> expression . MUL_OP expression
     (9) expression -> expression . ADD_OP expression
-    (12) expression -> expression . COMPARATOR expression
+    (10) expression -> expression . COMPARATOR expression
 
   ! shift/reduce conflict for MUL_OP resolved as shift
   ! shift/reduce conflict for ADD_OP resolved as shift
@@ -576,41 +499,41 @@ state 32
     POINTS          reduce using rule 9 (expression -> expression ADD_OP expression .)
     (               reduce using rule 9 (expression -> expression ADD_OP expression .)
     )               reduce using rule 9 (expression -> expression ADD_OP expression .)
-    MUL_OP          shift and go to state 22
-    ADD_OP          shift and go to state 23
-    COMPARATOR      shift and go to state 24
+    MUL_OP          shift and go to state 21
+    ADD_OP          shift and go to state 22
+    COMPARATOR      shift and go to state 23
 
   ! MUL_OP          [ reduce using rule 9 (expression -> expression ADD_OP expression .) ]
   ! ADD_OP          [ reduce using rule 9 (expression -> expression ADD_OP expression .) ]
   ! COMPARATOR      [ reduce using rule 9 (expression -> expression ADD_OP expression .) ]
 
 
-state 33
+state 31
 
-    (12) expression -> expression COMPARATOR expression .
+    (10) expression -> expression COMPARATOR expression .
     (8) expression -> expression . MUL_OP expression
     (9) expression -> expression . ADD_OP expression
-    (12) expression -> expression . COMPARATOR expression
+    (10) expression -> expression . COMPARATOR expression
 
   ! shift/reduce conflict for MUL_OP resolved as shift
   ! shift/reduce conflict for ADD_OP resolved as shift
   ! shift/reduce conflict for COMPARATOR resolved as shift
-    ENTER           reduce using rule 12 (expression -> expression COMPARATOR expression .)
-    $end            reduce using rule 12 (expression -> expression COMPARATOR expression .)
-    #               reduce using rule 12 (expression -> expression COMPARATOR expression .)
-    POINTS          reduce using rule 12 (expression -> expression COMPARATOR expression .)
-    (               reduce using rule 12 (expression -> expression COMPARATOR expression .)
-    )               reduce using rule 12 (expression -> expression COMPARATOR expression .)
-    MUL_OP          shift and go to state 22
-    ADD_OP          shift and go to state 23
-    COMPARATOR      shift and go to state 24
+    ENTER           reduce using rule 10 (expression -> expression COMPARATOR expression .)
+    $end            reduce using rule 10 (expression -> expression COMPARATOR expression .)
+    #               reduce using rule 10 (expression -> expression COMPARATOR expression .)
+    POINTS          reduce using rule 10 (expression -> expression COMPARATOR expression .)
+    (               reduce using rule 10 (expression -> expression COMPARATOR expression .)
+    )               reduce using rule 10 (expression -> expression COMPARATOR expression .)
+    MUL_OP          shift and go to state 21
+    ADD_OP          shift and go to state 22
+    COMPARATOR      shift and go to state 23
 
-  ! MUL_OP          [ reduce using rule 12 (expression -> expression COMPARATOR expression .) ]
-  ! ADD_OP          [ reduce using rule 12 (expression -> expression COMPARATOR expression .) ]
-  ! COMPARATOR      [ reduce using rule 12 (expression -> expression COMPARATOR expression .) ]
+  ! MUL_OP          [ reduce using rule 10 (expression -> expression COMPARATOR expression .) ]
+  ! ADD_OP          [ reduce using rule 10 (expression -> expression COMPARATOR expression .) ]
+  ! COMPARATOR      [ reduce using rule 10 (expression -> expression COMPARATOR expression .) ]
 
 
-state 34
+state 32
 
     (16) expression -> ( expression ) .
 
@@ -625,38 +548,69 @@ state 34
     )               reduce using rule 16 (expression -> ( expression ) .)
 
 
-state 35
+state 33
 
     (13) structure -> IF expression POINTS ENTER . TAB programme #
+
+    TAB             shift and go to state 36
+
+
+state 34
+
+    (14) structure -> DEF expression ( ) . POINTS ENTER TAB programme #
+
+    POINTS          shift and go to state 37
+
+
+state 35
+
+    (15) structure -> WHILE expression POINTS ENTER . TAB programme #
 
     TAB             shift and go to state 38
 
 
 state 36
 
-    (14) structure -> DEF expression ( ) . POINTS TAB programme #
-
-    POINTS          shift and go to state 39
-
-
-state 37
-
-    (15) structure -> WHILE expression POINTS ENTER . TAB programme #
-
-    TAB             shift and go to state 40
-
-
-state 38
-
     (13) structure -> IF expression POINTS ENTER TAB . programme #
     (1) programme -> . statement
     (2) programme -> . statement ENTER programme
     (3) statement -> . assignation
     (4) statement -> . structure
-    (11) statement -> . PRINT expression
-    (10) assignation -> . IDENTIFIER EQU expression
+    (12) statement -> . PRINT expression
+    (11) assignation -> . IDENTIFIER EQU expression
     (13) structure -> . IF expression POINTS ENTER TAB programme #
-    (14) structure -> . DEF expression ( ) POINTS TAB programme #
+    (14) structure -> . DEF expression ( ) POINTS ENTER TAB programme #
+    (15) structure -> . WHILE expression POINTS ENTER TAB programme #
+
+    PRINT           shift and go to state 5
+    IDENTIFIER      shift and go to state 6
+    IF              shift and go to state 7
+    DEF             shift and go to state 8
+    WHILE           shift and go to state 9
+
+    programme                      shift and go to state 39
+    statement                      shift and go to state 2
+    assignation                    shift and go to state 3
+    structure                      shift and go to state 4
+
+state 37
+
+    (14) structure -> DEF expression ( ) POINTS . ENTER TAB programme #
+
+    ENTER           shift and go to state 40
+
+
+state 38
+
+    (15) structure -> WHILE expression POINTS ENTER TAB . programme #
+    (1) programme -> . statement
+    (2) programme -> . statement ENTER programme
+    (3) statement -> . assignation
+    (4) statement -> . structure
+    (12) statement -> . PRINT expression
+    (11) assignation -> . IDENTIFIER EQU expression
+    (13) structure -> . IF expression POINTS ENTER TAB programme #
+    (14) structure -> . DEF expression ( ) POINTS ENTER TAB programme #
     (15) structure -> . WHILE expression POINTS ENTER TAB programme #
 
     PRINT           shift and go to state 5
@@ -672,53 +626,45 @@ state 38
 
 state 39
 
-    (14) structure -> DEF expression ( ) POINTS . TAB programme #
+    (13) structure -> IF expression POINTS ENTER TAB programme . #
 
-    TAB             shift and go to state 42
+    #               shift and go to state 42
 
 
 state 40
 
-    (15) structure -> WHILE expression POINTS ENTER TAB . programme #
-    (1) programme -> . statement
-    (2) programme -> . statement ENTER programme
-    (3) statement -> . assignation
-    (4) statement -> . structure
-    (11) statement -> . PRINT expression
-    (10) assignation -> . IDENTIFIER EQU expression
-    (13) structure -> . IF expression POINTS ENTER TAB programme #
-    (14) structure -> . DEF expression ( ) POINTS TAB programme #
-    (15) structure -> . WHILE expression POINTS ENTER TAB programme #
+    (14) structure -> DEF expression ( ) POINTS ENTER . TAB programme #
 
-    PRINT           shift and go to state 5
-    IDENTIFIER      shift and go to state 6
-    IF              shift and go to state 7
-    DEF             shift and go to state 8
-    WHILE           shift and go to state 9
+    TAB             shift and go to state 43
 
-    programme                      shift and go to state 43
-    statement                      shift and go to state 2
-    assignation                    shift and go to state 3
-    structure                      shift and go to state 4
 
 state 41
 
-    (13) structure -> IF expression POINTS ENTER TAB programme . #
+    (15) structure -> WHILE expression POINTS ENTER TAB programme . #
 
     #               shift and go to state 44
 
 
 state 42
 
-    (14) structure -> DEF expression ( ) POINTS TAB . programme #
+    (13) structure -> IF expression POINTS ENTER TAB programme # .
+
+    ENTER           reduce using rule 13 (structure -> IF expression POINTS ENTER TAB programme # .)
+    $end            reduce using rule 13 (structure -> IF expression POINTS ENTER TAB programme # .)
+    #               reduce using rule 13 (structure -> IF expression POINTS ENTER TAB programme # .)
+
+
+state 43
+
+    (14) structure -> DEF expression ( ) POINTS ENTER TAB . programme #
     (1) programme -> . statement
     (2) programme -> . statement ENTER programme
     (3) statement -> . assignation
     (4) statement -> . structure
-    (11) statement -> . PRINT expression
-    (10) assignation -> . IDENTIFIER EQU expression
+    (12) statement -> . PRINT expression
+    (11) assignation -> . IDENTIFIER EQU expression
     (13) structure -> . IF expression POINTS ENTER TAB programme #
-    (14) structure -> . DEF expression ( ) POINTS TAB programme #
+    (14) structure -> . DEF expression ( ) POINTS ENTER TAB programme #
     (15) structure -> . WHILE expression POINTS ENTER TAB programme #
 
     PRINT           shift and go to state 5
@@ -732,30 +678,7 @@ state 42
     assignation                    shift and go to state 3
     structure                      shift and go to state 4
 
-state 43
-
-    (15) structure -> WHILE expression POINTS ENTER TAB programme . #
-
-    #               shift and go to state 46
-
-
 state 44
-
-    (13) structure -> IF expression POINTS ENTER TAB programme # .
-
-    ENTER           reduce using rule 13 (structure -> IF expression POINTS ENTER TAB programme # .)
-    $end            reduce using rule 13 (structure -> IF expression POINTS ENTER TAB programme # .)
-    #               reduce using rule 13 (structure -> IF expression POINTS ENTER TAB programme # .)
-
-
-state 45
-
-    (14) structure -> DEF expression ( ) POINTS TAB programme . #
-
-    #               shift and go to state 47
-
-
-state 46
 
     (15) structure -> WHILE expression POINTS ENTER TAB programme # .
 
@@ -764,26 +687,30 @@ state 46
     #               reduce using rule 15 (structure -> WHILE expression POINTS ENTER TAB programme # .)
 
 
-state 47
+state 45
 
-    (14) structure -> DEF expression ( ) POINTS TAB programme # .
+    (14) structure -> DEF expression ( ) POINTS ENTER TAB programme . #
 
-    ENTER           reduce using rule 14 (structure -> DEF expression ( ) POINTS TAB programme # .)
-    $end            reduce using rule 14 (structure -> DEF expression ( ) POINTS TAB programme # .)
-    #               reduce using rule 14 (structure -> DEF expression ( ) POINTS TAB programme # .)
+    #               shift and go to state 46
+
+
+state 46
+
+    (14) structure -> DEF expression ( ) POINTS ENTER TAB programme # .
+
+    ENTER           reduce using rule 14 (structure -> DEF expression ( ) POINTS ENTER TAB programme # .)
+    $end            reduce using rule 14 (structure -> DEF expression ( ) POINTS ENTER TAB programme # .)
+    #               reduce using rule 14 (structure -> DEF expression ( ) POINTS ENTER TAB programme # .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for MUL_OP in state 26 resolved as shift
-WARNING: shift/reduce conflict for ADD_OP in state 26 resolved as shift
-WARNING: shift/reduce conflict for COMPARATOR in state 26 resolved as shift
+WARNING: shift/reduce conflict for MUL_OP in state 29 resolved as shift
+WARNING: shift/reduce conflict for ADD_OP in state 29 resolved as shift
+WARNING: shift/reduce conflict for COMPARATOR in state 29 resolved as shift
+WARNING: shift/reduce conflict for MUL_OP in state 30 resolved as shift
+WARNING: shift/reduce conflict for ADD_OP in state 30 resolved as shift
+WARNING: shift/reduce conflict for COMPARATOR in state 30 resolved as shift
 WARNING: shift/reduce conflict for MUL_OP in state 31 resolved as shift
 WARNING: shift/reduce conflict for ADD_OP in state 31 resolved as shift
 WARNING: shift/reduce conflict for COMPARATOR in state 31 resolved as shift
-WARNING: shift/reduce conflict for MUL_OP in state 32 resolved as shift
-WARNING: shift/reduce conflict for ADD_OP in state 32 resolved as shift
-WARNING: shift/reduce conflict for COMPARATOR in state 32 resolved as shift
-WARNING: shift/reduce conflict for MUL_OP in state 33 resolved as shift
-WARNING: shift/reduce conflict for ADD_OP in state 33 resolved as shift
-WARNING: shift/reduce conflict for COMPARATOR in state 33 resolved as shift

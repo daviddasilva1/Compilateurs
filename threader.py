@@ -1,8 +1,11 @@
 import AST
 from AST import addToClass
 import sys
+from lex4 import reserved_words
+import numbers
 
 dict_variables = {}
+used_variables = []
 
 @addToClass(AST.Node)
 def thread(self, lastNode):
@@ -18,14 +21,43 @@ def thread(self, lastNode):
     exitCond.addNext(self)
     exitBody = self.children[1].thread(self)
     exitBody.addNext(beforeCond.next[-1])
+    if self.children[0].children:
+        if self.children[0].children[0].tok not in dict_variables:
+            print("error : "+self.children[0].children[0].tok+ " is not defined")
+            sys.exit()
+    else:
+         if self.children[0].tok not in dict_variables:
+            print("error : "+self.children[0].tok+ " is not defined")
+            sys.exit()
 
     return self
+
+
+@addToClass(AST.IfNode)
+def thread(self,lastNode):
+    beforeCond = lastNode
+    exitCond = self.children[0].thread(lastNode)
+    exitCond.addNext(self)
+    exitBody = self.children[1].thread(self)
+    exitBody.addNext(beforeCond.next[-1])
+    if self.children[0].children:
+        if self.children[0].children[0].tok not in dict_variables:
+            print("error : "+self.children[0].children[0].tok+ " is not defined")
+            sys.exit()
+    else:
+         if self.children[0].tok not in dict_variables:
+            print("error : "+self.children[0].tok+ " is not defined")
+            sys.exit()
+
+    return self  
 
 @addToClass(AST.AssignNode)
 def thread(self,lastNode):
         global dict_variables
 
-        
+        if self.children[0].tok in reserved_words:
+            print("syntax error : invalid syntax (reserved word)")
+            sys.exit()
         if self.children[0].tok in dict_variables:
             if isinstance(self.children[1].tok,float):
                 if dict_variables.get(self.children[0].tok)=='float':
@@ -44,15 +76,16 @@ def thread(self,lastNode):
             dict_variables = {self.children[0].tok : 'unknown'}
         else:
             if isinstance(self.children[1].tok,float):
-                dict_variables = {self.children[0].tok : 'float'}
+                dict_variables[self.children[0].tok] = 'float'
             else:
-                dict_variables = {self.children[0].tok : 'int'}
+                dict_variables[self.children[0].tok] = 'int'
 
         
         
         for c in self.children:
             lastNode = c.thread(lastNode)
         lastNode.addNext(self)
+
         return self
         
 
@@ -68,6 +101,26 @@ def thread(self, lastNode):
         lastNode.addNext(self)
 
         return self
+
+@addToClass(AST.PrintNode)
+def thread(self,lastNode):
+    if self.children[0].children:
+        if self.children[0].children[0].tok not in dict_variables:
+            print("error : "+self.children[0].children[0].tok+ " is not defined")
+            sys.exit()
+    else:
+        print(type(self.children[0].tok))
+        if self.children[0].tok not in dict_variables and not isinstance(self.children[0].tok,float):
+            if not isinstance(int(self.children[0].tok),int):
+                print("error : "+self.children[0].tok+ " is not defined")
+                sys.exit()
+
+            
+    for c in self.children:
+        lastNode = c.thread(lastNode)
+    lastNode.addNext(self)
+    
+    return self
 
 
 def thread(tree):
