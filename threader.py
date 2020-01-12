@@ -85,7 +85,6 @@ def thread(self,lastNode):
                         sys.exit()
 
         if self.children[1].children:
-            print(self.children[1].children[1].tok)
             if isinstance(self.children[1].children[0].tok,float) or isinstance(self.children[1].children[1].tok,float):
                 dict_variables[self.children[0].tok]= 'float'
             else:

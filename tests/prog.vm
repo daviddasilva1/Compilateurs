@@ -1,0 +1,26 @@
+int a = 3;
+float b = 3.5;
+b = b-7.1;
+while(a<5) {
+	if(b<5) {
+		int y = 3;
+	}
+	a = a+1;
+}
+b = b*2.5;
+int c = 15;
+if(a<13) {
+	while(c>10) {
+		cout << a;
+	}
+	c = c-1;
+}
+public void  check()
+{
+	if(a<3) {
+		if(b<5) {
+			float j = 5.5;
+		}
+		cout << b;
+	}
+}

@@ -22,7 +22,7 @@ tokens = (
 
 
 
-literals = '.#():\s'
+literals = '.#():\s"'
 
 def t_ENTER(t):
 	r'\n'
@@ -100,7 +100,7 @@ def t_newline(t):
 
 def t_IGNORE(t):
 	r'[ /s]{1}'
-	
+
 def t_error(t):
 	print ("Illegal character '%s'" % t.value[0])
 	t.lexer.skip(1)

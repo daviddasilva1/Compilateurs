@@ -4,17 +4,6 @@ from AST import addToClass
 from threader import thread
 
 
-
-# opcodes de la SVM
-#    PUSHC <val>     pushes the constant <val> on the stack
-#    PUSHV <id>      pushes the value of identifier <id> on the stack
-#    SET <id>        pops a value from the top of stack and sets <id>
-#    PRINT           pops a value from the top of stack and print it
-#    ADD,SUB,DIV,MUL pops 2 values from the top of stack and compute them
-#    USUB            changes the sign of the number on the top of stack
-#    JMP <tag>       jump to :<tag>
-#    JIZ,JINZ <tag>  pops a value from the top of stack and jump to :<tag> if (not) zero
-
 # chaque opération correspond à son instruction d'exécution de la machine SVM
 operations = {
 	'+' : 'ADD',
@@ -32,10 +21,6 @@ cpt = 0
 from threader import dict_variables
 used_variables = []
 
-def whilecounter():
-	whilecounter.current += 1
-	return whilecounter.current
-whilecounter.current = 0
 
 @addToClass(AST.ProgramNode)
 def compile(self):
@@ -59,6 +44,8 @@ def compile(self):
 		bytecode +="\t"
 	elif counter==2:
 		bytecode +="\t\t"
+	elif counter==3:
+		bytecode +="\t\t\t"
 	else:
 		pass
 
@@ -82,6 +69,8 @@ def compile(self):
 		bytecode +="\t"
 	elif counter==2:
 		bytecode +="\t\t"
+	elif counter==3:
+		bytecode +="\t\t\t"
 	else:
 		pass
 	bytecode += "cout << "
@@ -113,6 +102,8 @@ def compile(self):
 		bytecode +="\t"
 	elif counter==2 and inLoop:
 		bytecode +="\t\t"
+	elif counter==3 and inLoop:
+		bytecode +="\t\t\t"
 	else:
 		pass
 	bytecode += "while(%s) {" % self.children[0].compile()
@@ -120,7 +111,9 @@ def compile(self):
 	bytecode +="\n"
 	inLoop=True
 	bytecode += self.children[1].compile()
-	if counter==2:
+	if counter==3:
+		bytecode +="\t\t}\n"
+	elif counter==2:
 		bytecode +="\t}\n"
 	else:
 		bytecode +="}\n"
@@ -140,6 +133,8 @@ def compile(self):
 		bytecode +="\t"
 	elif counter==2:
 		bytecode +="\t\t"
+	elif counter==3:
+		bytecode="\t\t\t"
 	else:
 		pass
 	bytecode += "if(%s) {" % self.children[0].compile()
@@ -147,7 +142,9 @@ def compile(self):
 	bytecode +="\n"
 	inLoop=True
 	bytecode += self.children[1].compile()
-	if counter==2:
+	if counter==3:
+		bytecode +="\t\t}\n"
+	elif counter==2:
 		bytecode +="\t}\n"
 	else:
 		bytecode +="}\n"
@@ -162,12 +159,13 @@ def compile(self):
 	global counter
 	bytecode=""
 	bytecode += "public void "
-	print(self.children[0].tok)
 	bytecode +=  " %s" % self.children[0].tok
 	bytecode +="()\n{"
 	counter +=1
-	bytecode +="\n\t"+self.children[1].compile()
-	if counter==2:
+	bytecode +="\n"+self.children[1].compile()
+	if counter==3:
+		bytecode +="\t\t}\n"		
+	elif counter==2:
 		bytecode +="\t}\n"
 	else:
 		bytecode +="}\n"
