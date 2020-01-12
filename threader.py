@@ -54,27 +54,46 @@ def thread(self,lastNode):
 @addToClass(AST.AssignNode)
 def thread(self,lastNode):
         global dict_variables
-
-        if self.children[0].tok in reserved_words:
-            print("syntax error : invalid syntax (reserved word)")
-            sys.exit()
+        
         if self.children[0].tok in dict_variables:
-            if isinstance(self.children[1].tok,float):
-                if dict_variables.get(self.children[0].tok)=='float':
-                    pass
+            if self.children[1].children:
+                if isinstance(self.children[1].children[0].tok,float) or isinstance(self.children[1].children[1].tok,float):
+                    if dict_variables.get(self.children[0].tok)=='float':
+                        pass
+                    else:
+                        print("error : confliting declaration int "+self.children[0].tok)
+                        sys.exit()
                 else:
-                    print("error : confliting declaration int "+self.children[0].tok)
-                    sys.exit()
+                    if dict_variables.get(self.children[0].tok)=='int':
+                        pass
+                    else:
+                        print("error : confliting declaration int "+self.children[0].tok)
+                        sys.exit()
+
             else:
-                if dict_variables.get(self.children[0].tok)=='int':
-                    pass
+                if isinstance(self.children[1].tok,float):
+                    if dict_variables.get(self.children[0].tok)=='float':
+                        pass
+                    else:
+                        print("error : confliting declaration int "+self.children[0].tok)
+                        sys.exit()
                 else:
-                    print("error : confliting declaration float "+self.children[0].tok)
-                    sys.exit()
+                    if dict_variables.get(self.children[0].tok)=='int':
+                        pass
+                    else:
+                        print("error : confliting declaration float "+self.children[0].tok)
+                        sys.exit()
 
         if self.children[1].children:
-            dict_variables = {self.children[0].tok : 'unknown'}
+            print(self.children[1].children[1].tok)
+            if isinstance(self.children[1].children[0].tok,float) or isinstance(self.children[1].children[1].tok,float):
+                dict_variables[self.children[0].tok]= 'float'
+            else:
+                dict_variables[self.children[0].tok]= 'int'
+
+             
         else:
+         
             if isinstance(self.children[1].tok,float):
                 dict_variables[self.children[0].tok] = 'float'
             else:
@@ -104,16 +123,23 @@ def thread(self, lastNode):
 
 @addToClass(AST.PrintNode)
 def thread(self,lastNode):
+    print(dict_variables)
     if self.children[0].children:
         if self.children[0].children[0].tok not in dict_variables:
             print("error : "+self.children[0].children[0].tok+ " is not defined")
             sys.exit()
     else:
-        print(type(self.children[0].tok))
-        if self.children[0].tok not in dict_variables and not isinstance(self.children[0].tok,float):
-            if not isinstance(int(self.children[0].tok),int):
-                print("error : "+self.children[0].tok+ " is not defined")
-                sys.exit()
+        print("---------------")
+        print(self)
+        print("---------------")
+        if self.children[0].tok not in dict_variables:
+            if not isinstance(self.children[0].tok,float):
+                try:
+                    isinstance(int(self.children[0].tok),int)
+                except:
+                    print("error : "+self.children[0].tok+ " is not defined")
+                    sys.exit()
+            
 
             
     for c in self.children:

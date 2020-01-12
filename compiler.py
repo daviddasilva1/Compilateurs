@@ -64,7 +64,7 @@ def compile(self):
 
 	
 	if self.children[0].tok not in bytecode and self.children[0].tok not in used_variables:
-		bytecode += dict_variables.get(self.children[0].tok)+" "
+		bytecode += str(dict_variables.get(self.children[0].tok))+" "
 		bytecode += self.children[0].tok + " ="
 		used_variables.append(self.children[0].tok)
 	else:
@@ -93,11 +93,11 @@ def compile(self):
 @addToClass(AST.OpNode)
 def compile(self):
 	bytecode = ""	
-	bytecode += self.children[0].tok
+	bytecode += str(self.children[0].tok)
 	for key,value in operations.items():
 		if value == operations[self.op]:
 			bytecode += key
-	bytecode += self.children[1].tok
+	bytecode += str(self.children[1].tok)
 
 
 	return bytecode
