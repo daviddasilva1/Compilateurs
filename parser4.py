@@ -29,7 +29,8 @@ def p_expression_num_or_var(p):
 
 def p_expression_op(p):
     '''expression : expression MUL_OP expression 
-	   | expression ADD_OP expression'''
+	   | expression ADD_OP expression
+	   | expression COMPARATOR expression'''
     p[0] = AST.OpNode(p[2], [p[1], p[3]])
 
 def p_assign(p):
@@ -41,17 +42,14 @@ def p_statement_print(p):
     ''' statement : PRINT expression '''
     p[0] = AST.PrintNode(p[2])
 
-def p_expression_comp(p):
-	''' expression : expression COMPARATOR expression'''
-	p[0] = AST.OpNode(p[2],[p[1],p[3]])
 
 def p_structure_if(p):
 	'''structure : IF expression POINTS ENTER TAB programme '#' '''
 	p[0] = AST.IfNode([p[2],p[6]])
 
 def p_structure_function(p):
-	'''structure : DEF expression '(' ')' POINTS TAB programme '#' '''
-	p[0] = AST.FunctionNode([p[2],p[7]])
+	'''structure : DEF expression '(' ')' POINTS ENTER TAB programme '#' '''
+	p[0] = AST.FunctionNode([p[2],p[8]])
 
 def p_structure_while(p):
 	''' structure : WHILE expression POINTS ENTER TAB programme '#' '''
@@ -61,16 +59,15 @@ def p_expression_paren(p):
     '''expression : '(' expression ')' '''
     p[0] = p[2]
 
-
-def p_expression_tab(p):
- 	'''expression : TAB expression'''
- 	p[0] = p[2]
-
-
-
 def p_error(p):
-    print ("Syntax error in line %d" % p.lineno)
-    yacc.errok()
+	print ("Syntax error in line %d" % p.lineno)
+	yacc.errok()
+
+precedence = (
+    ('left', 'ADD_OP'),
+    ('left', 'MUL_OP'),
+	('left','COMPARATOR')
+)
 
 
 def parse(program):

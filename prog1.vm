@@ -1,14 +1,14 @@
 int a = 3;
 float b = 3.5;
+b = 3.5+3.5;
 cout << a;
 while(b<5) {
 	if(a<5) {
-		int y = 8;
+		int y = 3;
 	}
 }
 int c = 5;
 if(a<3) {
-	b = 5;
 	while(c>10) {
 		cout << a;
 	}

@@ -3,18 +3,13 @@ import ply.lex as lex
 reserved_words = (
 	'if',
 	'print',
-	'range',
-	'for',
-	'in',
 	'while',
-	'else',
 	'def'
 )
 
 tokens = (
 	'COMPARATOR',
 	'IDENTIFIER',
-	'ILLEGAL',
 	'FLOAT',
 	'INT',
 	'EQU',
@@ -23,11 +18,11 @@ tokens = (
 	'TAB',
 	'ADD_OP',
 	'MUL_OP'
-	) + tuple(map(lambda s:s.upper(),reserved_words))
+) + tuple(map(lambda s:s.upper(),reserved_words))
 
 
 
-literals = '.#():\s'
+literals = '.#():\s"'
 
 def t_ENTER(t):
 	r'\n'
@@ -102,6 +97,9 @@ def t_newline(t):
 	r'\n+'
 	t.lexer.lineno += len(t.value)
 
+
+def t_IGNORE(t):
+	r'[ /s]{1}'
 
 def t_error(t):
 	print ("Illegal character '%s'" % t.value[0])
