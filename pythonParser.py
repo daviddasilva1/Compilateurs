@@ -1,6 +1,6 @@
 import ply.yacc as yacc
 
-from lex4 import tokens
+from lexical import tokens
 
 import AST
 
