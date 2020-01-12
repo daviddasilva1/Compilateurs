@@ -65,10 +65,10 @@ def compile(self):
 	
 	if self.children[0].tok not in bytecode and self.children[0].tok not in used_variables:
 		bytecode += str(dict_variables.get(self.children[0].tok))+" "
-		bytecode += self.children[0].tok + " ="
+		bytecode += self.children[0].tok + " = "
 		used_variables.append(self.children[0].tok)
 	else:
-		bytecode += self.children[0].tok + " ="
+		bytecode += self.children[0].tok + " = "
 
 	bytecode += self.children[1].compile()
 	bytecode +=";\n"

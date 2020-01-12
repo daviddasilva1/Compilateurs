@@ -63,6 +63,12 @@ def p_error(p):
 	print ("Syntax error in line %d" % p.lineno)
 	yacc.errok()
 
+precedence = (
+    ('left', 'ADD_OP'),
+    ('left', 'MUL_OP'),
+	('left','COMPARATOR')
+)
+
 
 def parse(program):
     return yacc.parse(program)

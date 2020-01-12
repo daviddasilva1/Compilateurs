@@ -465,22 +465,19 @@ state 29
     (9) expression -> expression . ADD_OP expression
     (10) expression -> expression . COMPARATOR expression
 
-  ! shift/reduce conflict for MUL_OP resolved as shift
-  ! shift/reduce conflict for ADD_OP resolved as shift
-  ! shift/reduce conflict for COMPARATOR resolved as shift
+    MUL_OP          reduce using rule 8 (expression -> expression MUL_OP expression .)
+    ADD_OP          reduce using rule 8 (expression -> expression MUL_OP expression .)
     ENTER           reduce using rule 8 (expression -> expression MUL_OP expression .)
     $end            reduce using rule 8 (expression -> expression MUL_OP expression .)
     #               reduce using rule 8 (expression -> expression MUL_OP expression .)
     POINTS          reduce using rule 8 (expression -> expression MUL_OP expression .)
     (               reduce using rule 8 (expression -> expression MUL_OP expression .)
     )               reduce using rule 8 (expression -> expression MUL_OP expression .)
-    MUL_OP          shift and go to state 21
-    ADD_OP          shift and go to state 22
     COMPARATOR      shift and go to state 23
 
-  ! MUL_OP          [ reduce using rule 8 (expression -> expression MUL_OP expression .) ]
-  ! ADD_OP          [ reduce using rule 8 (expression -> expression MUL_OP expression .) ]
   ! COMPARATOR      [ reduce using rule 8 (expression -> expression MUL_OP expression .) ]
+  ! MUL_OP          [ shift and go to state 21 ]
+  ! ADD_OP          [ shift and go to state 22 ]
 
 
 state 30
@@ -490,9 +487,7 @@ state 30
     (9) expression -> expression . ADD_OP expression
     (10) expression -> expression . COMPARATOR expression
 
-  ! shift/reduce conflict for MUL_OP resolved as shift
-  ! shift/reduce conflict for ADD_OP resolved as shift
-  ! shift/reduce conflict for COMPARATOR resolved as shift
+    ADD_OP          reduce using rule 9 (expression -> expression ADD_OP expression .)
     ENTER           reduce using rule 9 (expression -> expression ADD_OP expression .)
     $end            reduce using rule 9 (expression -> expression ADD_OP expression .)
     #               reduce using rule 9 (expression -> expression ADD_OP expression .)
@@ -500,12 +495,11 @@ state 30
     (               reduce using rule 9 (expression -> expression ADD_OP expression .)
     )               reduce using rule 9 (expression -> expression ADD_OP expression .)
     MUL_OP          shift and go to state 21
-    ADD_OP          shift and go to state 22
     COMPARATOR      shift and go to state 23
 
   ! MUL_OP          [ reduce using rule 9 (expression -> expression ADD_OP expression .) ]
-  ! ADD_OP          [ reduce using rule 9 (expression -> expression ADD_OP expression .) ]
   ! COMPARATOR      [ reduce using rule 9 (expression -> expression ADD_OP expression .) ]
+  ! ADD_OP          [ shift and go to state 22 ]
 
 
 state 31
@@ -515,22 +509,19 @@ state 31
     (9) expression -> expression . ADD_OP expression
     (10) expression -> expression . COMPARATOR expression
 
-  ! shift/reduce conflict for MUL_OP resolved as shift
-  ! shift/reduce conflict for ADD_OP resolved as shift
-  ! shift/reduce conflict for COMPARATOR resolved as shift
+    MUL_OP          reduce using rule 10 (expression -> expression COMPARATOR expression .)
+    ADD_OP          reduce using rule 10 (expression -> expression COMPARATOR expression .)
+    COMPARATOR      reduce using rule 10 (expression -> expression COMPARATOR expression .)
     ENTER           reduce using rule 10 (expression -> expression COMPARATOR expression .)
     $end            reduce using rule 10 (expression -> expression COMPARATOR expression .)
     #               reduce using rule 10 (expression -> expression COMPARATOR expression .)
     POINTS          reduce using rule 10 (expression -> expression COMPARATOR expression .)
     (               reduce using rule 10 (expression -> expression COMPARATOR expression .)
     )               reduce using rule 10 (expression -> expression COMPARATOR expression .)
-    MUL_OP          shift and go to state 21
-    ADD_OP          shift and go to state 22
-    COMPARATOR      shift and go to state 23
 
-  ! MUL_OP          [ reduce using rule 10 (expression -> expression COMPARATOR expression .) ]
-  ! ADD_OP          [ reduce using rule 10 (expression -> expression COMPARATOR expression .) ]
-  ! COMPARATOR      [ reduce using rule 10 (expression -> expression COMPARATOR expression .) ]
+  ! MUL_OP          [ shift and go to state 21 ]
+  ! ADD_OP          [ shift and go to state 22 ]
+  ! COMPARATOR      [ shift and go to state 23 ]
 
 
 state 32
@@ -702,15 +693,3 @@ state 46
     $end            reduce using rule 14 (structure -> DEF expression ( ) POINTS ENTER TAB programme # .)
     #               reduce using rule 14 (structure -> DEF expression ( ) POINTS ENTER TAB programme # .)
 
-WARNING: 
-WARNING: Conflicts:
-WARNING: 
-WARNING: shift/reduce conflict for MUL_OP in state 29 resolved as shift
-WARNING: shift/reduce conflict for ADD_OP in state 29 resolved as shift
-WARNING: shift/reduce conflict for COMPARATOR in state 29 resolved as shift
-WARNING: shift/reduce conflict for MUL_OP in state 30 resolved as shift
-WARNING: shift/reduce conflict for ADD_OP in state 30 resolved as shift
-WARNING: shift/reduce conflict for COMPARATOR in state 30 resolved as shift
-WARNING: shift/reduce conflict for MUL_OP in state 31 resolved as shift
-WARNING: shift/reduce conflict for ADD_OP in state 31 resolved as shift
-WARNING: shift/reduce conflict for COMPARATOR in state 31 resolved as shift

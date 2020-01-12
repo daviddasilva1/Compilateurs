@@ -123,15 +123,11 @@ def thread(self, lastNode):
 
 @addToClass(AST.PrintNode)
 def thread(self,lastNode):
-    print(dict_variables)
     if self.children[0].children:
         if self.children[0].children[0].tok not in dict_variables:
             print("error : "+self.children[0].children[0].tok+ " is not defined")
             sys.exit()
     else:
-        print("---------------")
-        print(self)
-        print("---------------")
         if self.children[0].tok not in dict_variables:
             if not isinstance(self.children[0].tok,float):
                 try:
