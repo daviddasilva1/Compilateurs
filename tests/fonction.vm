@@ -1,6 +1,6 @@
 int b = 5;
 int a = 5;
-public void  test_function()
+public void test_function()
 {
 	if(a<3) {
 		if(b<5) {

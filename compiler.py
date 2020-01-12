@@ -2,6 +2,7 @@
 import AST
 from AST import addToClass
 from threader import thread
+from pythonParser import parse
 
 
 # chaque opération correspond à son instruction d'exécution de la machine SVM
@@ -159,7 +160,7 @@ def compile(self):
 	global counter
 	bytecode=""
 	bytecode += "public void "
-	bytecode +=  " %s" % self.children[0].tok
+	bytecode +=  "%s" % self.children[0].tok
 	bytecode +="()\n{"
 	counter +=1
 	bytecode +="\n"+self.children[1].compile()
@@ -172,7 +173,6 @@ def compile(self):
 	return bytecode
 
 if __name__ == "__main__":
-    from parser4 import parse
     import sys, os.path
     from os import path
     prog = open(sys.argv[1]).read()

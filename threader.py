@@ -1,8 +1,6 @@
 import AST
 from AST import addToClass
 import sys
-from lex4 import reserved_words
-import numbers
 
 dict_variables = {}
 used_variables = []
