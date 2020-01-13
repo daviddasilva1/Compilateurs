@@ -1,5 +1,21 @@
 import ply.lex as lex
 
+'''
+Ce fichier sert à faire l'analyse lexicale de notre programme.
+Une partie a été reprise du travail fait pendant les TPS et adapté
+selon nos besoin. Tous les tokens qui doivent être analysés sont ici décrits.
+
+David da Silva
+Robin Alfred
+
+'''
+
+
+
+'''
+Liste des mots reservés, concerne les structures dans le programme
+que ce soit bloc ou boucle
+'''
 reserved_words = (
 	'if',
 	'print',
@@ -7,6 +23,10 @@ reserved_words = (
 	'def'
 )
 
+'''
+Liste des tokens présents dans notre programme, qui seront analysés par la suite
+dans l'analyse syntaxique
+'''
 tokens = (
 	'COMPARATOR',
 	'IDENTIFIER',
@@ -26,15 +46,12 @@ literals = '.#():\s"'
 
 def t_ENTER(t):
 	r'\n'
+	t.lexer.lineno += len(t.value)
 	return t
-
-
 
 def t_ADD_OP(t):
 	r'[+-]'
 	return t
-
-
 
 def t_POINTS(t):
 	r':'
@@ -54,7 +71,6 @@ def t_COMPARATOR(t):
 
 
 def t_INT(t):
-	#r'\d+(?!\.)(?![a-zA-Z])'
 	r'\b(?<!\.)\d+(?!\.)\b'
 	try:
 		t.value = t.value   
@@ -90,8 +106,6 @@ def t_IDENTIFIER(t):
 def t_TAB(t):
 	r'[ \t]{4}'
 	return t
-
-
 
 def t_newline(t):
 	r'\n+'

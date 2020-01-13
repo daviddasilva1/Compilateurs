@@ -1,16 +1,14 @@
 # coding: latin-1
-''' AST.py, version 0.2
+'''
 
 Petit module utilitaire pour la construction, la manipulation et la 
 représentation d'arbres syntaxiques abstraits.
 
-Sûrement plein de bugs et autres surprises. À prendre comme un 
-"work in progress"...
-Notamment, l'utilisation de pydot pour représenter un arbre syntaxique cousu
-est une utilisation un peu "limite" de graphviz. Ça marche, mais le layout n'est
-pas toujours optimal...
+Utilisation en parallèle de graphviz pour créer les arbres syntaxiques.
+Contenu repris des TPs réalisés en cours. Les nouveautés faites par nous même.
 
-2008-2009, Matthieu Amiguet, HE-Arc
+David da Silva
+Robin Alfred
 '''
 
 import pydot
@@ -58,8 +56,6 @@ class Node:
                 if label:
                     edge.set_label(str(i))
                 dot.add_edge(edge)
-                #Workaround for a bug in pydot 1.0.2 on Windows:
-                #dot.set_graphviz_executables({'dot': r'C:\Program Files (x86)\Graphviz2.38\bin\dot.exe'})
             return dot
 
     def threadTree(self, graph, seen = None, col=0):
@@ -81,12 +77,6 @@ class Node:
                 edge = pydot.Edge(self.ID,c.ID)
                 edge.set_color(color)
                 edge.set_arrowsize('.5')
-                # Les arr�tes correspondant aux coutures ne sont pas prises en compte
-                # pour le layout du graphe. Ceci permet de garder l'arbre dans sa repr�sentation
-                # "standard", mais peut provoquer des surprises pour le trajet parfois un peu
-                # tarabiscot� des coutures...
-                # En commantant cette ligne, le layout sera bien meilleur, mais l'arbre nettement
-                # moins reconnaissable.
                 edge.set_constraint('false') 
                 if label:
                     edge.set_taillabel(str(i))
@@ -114,7 +104,7 @@ class TokenNode(Node):
 class OpNode(Node):
     def __init__(self, op, children):
         Node.__init__(self,children)
-        self.op = op
+        self.op = op #pour avoir l'operateur utilisé (+,-,/,*,<,>)
         try:
             self.nbargs = len(children)
         except AttributeError:
@@ -125,20 +115,37 @@ class OpNode(Node):
         return "%s (%s)" % (self.op, self.nbargs)
     
 
+'''
+si la règle concerne les assignations, un '=' sera utilisé dans l'arbre syntaxique
+'''
 class AssignNode(Node):
     type = '='
 
+'''
+si la règle concerne les print, un 'print' sera utilisé dans l'arbre syntaxique
+'''
 class PrintNode(Node):
     type = 'print'
 
+'''
+si la règle concerne les bloc if, un 'if' sera utilisé dans l'arbre syntaxique
+'''
 class IfNode(Node):
     type= 'if'
 
+'''
+si la règle concerne les boucle while, un 'while' sera utilisé dans l'arbre syntaxique
+'''
 class WhileNode(Node):
     type= 'while'
 
+'''
+si la règle concerne les fonctions, un 'def' sera utilisé dans l'arbre syntaxique
+'''
 class FunctionNode(Node):
     type= 'def'
+
+
 
 def addToClass(cls):
     ''' Décorateur permettant d'ajouter la fonction décorée en tant que méthode
@@ -147,10 +154,8 @@ def addToClass(cls):
     Permet d'implémenter une forme élémentaire de programmation orientée
     aspects en regroupant les méthodes de différentes classes implémentant
     une même fonctionnalité en un seul endroit.
-    
-    Attention, après utilisation de ce décorateur, la fonction décorée reste dans
-    le namespace courant. Si cela dérange, on peut utiliser del pour la détruire.
-    Je ne sais pas s'il existe un moyen d'éviter ce phénomène.
+
+    Code repris des TPs réalisés en cours.
     '''
     def decorator(func):
         setattr(cls,func.__name__,func)

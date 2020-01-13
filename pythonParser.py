@@ -4,6 +4,16 @@ from lexical import tokens
 
 import AST
 
+'''
+Ce fichier sert à faire l'analyse syntaxique, qui nous donnera un arbre syntaxique comme résultat.
+En utilisant les tokens créés dans l'analyse lexicale, on peut définir toutes les règles de notre programme.
+Le but est d'avoir toutes les combinaisons possible dans notre programme sans avoir des conflit shift/reduce.
+Utilisation du fichier AST.py en même temps.
+
+David da Silva
+Robin Alfred
+'''
+
 
 vars = {}
 
@@ -63,6 +73,12 @@ def p_error(p):
 	print ("Syntax error in line %d" % p.lineno)
 	yacc.errok()
 
+
+'''
+La liste suivante permet de faire une priorité dans les opérations.
+Sans cette liste, des shift/reduce conflict auront lieu.
+Repris des TPs et adapté pour nos besoins.
+'''
 precedence = (
     ('left', 'ADD_OP'),
     ('left', 'MUL_OP'),
@@ -77,12 +93,12 @@ yacc.yacc(outputdir='generated')
 
 if __name__ == "__main__":
 	import sys 
-	
+	import os
+
 	prog = open(sys.argv[1]).read()
 	ast = yacc.parse(prog)
 	print (ast)
 	
-	import os
 	os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
 	graph = ast.makegraphicaltree()
 	name = os.path.splitext(sys.argv[1])[0]+'-ast.pdf'
